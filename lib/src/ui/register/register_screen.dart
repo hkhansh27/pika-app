@@ -9,7 +9,7 @@ import '../../widgets/custom_button.dart';
 import '../../widgets/custom_textformfield.dart';
 import 'register_controller.dart';
 
-class RegisterPage extends GetView<RegisterController> {
+class RegisterScreen extends GetView<RegisterController> {
   final List<FocusNode> _focusNodes = [
     FocusNode(),
     FocusNode(),
@@ -50,7 +50,7 @@ class RegisterPage extends GetView<RegisterController> {
                     height: 10,
                   ),
                   Text(
-                    "Getting Started",
+                    "Create your account",
                     style: Theme.of(context).textTheme.headline6!.copyWith(
                           fontWeight: FontWeight.w700,
                           fontSize: 24,
@@ -102,20 +102,39 @@ class RegisterPage extends GetView<RegisterController> {
                               prefix: Padding(
                                 padding: const EdgeInsets.all(14.0),
                                 child: SvgPicture.asset(
-                                  DefaultImages.phone,
+                                  DefaultImages.user,
                                   color: _focusNodes[1].hasFocus
                                       ? HexColor(AppTheme.primaryColorString!)
                                       : const Color(0xffA2A0A8),
                                   // color:  HexColor(AppTheme.secondaryColorString!)
                                 ),
                               ),
-                              hintText: "Phone Number",
-                              inputType: TextInputType.phone,
+                              hintText: "Username",
+                              inputType: TextInputType.name,
                               textEditingController: controller.mobileController.value,
                               capitalization: TextCapitalization.none,
                               limit: [LengthLimitingTextInputFormatter(10), FilteringTextInputFormatter.digitsOnly],
                             ),
-                            // const SizedBox(height: 24),
+                            const SizedBox(height: 24),
+                            CustomTextFormField(
+                              focusNode: _focusNodes[2],
+                              prefix: Padding(
+                                padding: const EdgeInsets.all(14.0),
+                                child: SvgPicture.asset(
+                                  DefaultImages.pswd,
+                                  color: _focusNodes[1].hasFocus
+                                      ? HexColor(AppTheme.primaryColorString!)
+                                      : const Color(0xffA2A0A8),
+                                  // color:  HexColor(AppTheme.secondaryColorString!)
+                                ),
+                              ),
+                              hintText: "Password",
+                              inputType: TextInputType.visiblePassword,
+                              textEditingController: controller.pswdController.value,
+                              capitalization: TextCapitalization.none,
+                              limit: [LengthLimitingTextInputFormatter(10), FilteringTextInputFormatter.digitsOnly],
+                            ),
+
                             // Obx(() {
                             //   return CustomTextFormField(
                             //     focusNode: _focusNodes[2],
@@ -251,32 +270,6 @@ class RegisterPage extends GetView<RegisterController> {
                               },
                               child: customButton(HexColor(AppTheme.primaryColorString!), "Sign Up",
                                   HexColor(AppTheme.secondaryColorString!), context),
-                            ),
-                            InkWell(
-                              focusColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              splashColor: Colors.transparent,
-                              onTap: () {
-                                controller.goToLoginPage();
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 24),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text("Already have an account? ",
-                                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                                            fontWeight: FontWeight.w600, fontSize: 16, color: const Color(0xff9CA3AF))),
-                                    Text(" Login",
-                                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 16,
-                                              color: HexColor(AppTheme.primaryColorString!),
-                                            ))
-                                  ],
-                                ),
-                              ),
                             ),
                           ],
                         ),

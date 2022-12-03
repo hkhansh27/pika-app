@@ -161,7 +161,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         InkWell(
                           onTap: () {
                             Get.to(
-                              LoginPage(),
+                              LoginScreen(),
                               transition: Transition.rightToLeft,
                               duration: const Duration(milliseconds: 500),
                             );

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:pika/src/res/images.dart';
+import 'package:pika/src/ui/login/verify_screen.dart';
 import 'package:pika/src/ui/profile/controllers/profile_controller.dart';
 import 'package:pika/src/ui/proof/controllers/proof_controller.dart';
 
@@ -106,6 +107,8 @@ class CheckInfoPage extends GetView<ProofController> {
                                 prefix: Padding(
                                   padding: const EdgeInsets.all(14.0),
                                   child: SvgPicture.asset(
+                                    width: 50,
+                                    height: 50,
                                     DefaultImages.phone,
                                     color: _focusNodes[1].hasFocus
                                         ? HexColor(AppTheme.primaryColorString!)
@@ -113,7 +116,7 @@ class CheckInfoPage extends GetView<ProofController> {
                                     // color:  HexColor(AppTheme.secondaryColorString!)
                                   ),
                                 ),
-                                hintText: "Phone Number",
+                                hintText: controller.userModel.value?.phone ?? "Error",
                                 inputType: TextInputType.phone,
                                 textEditingController: controller.mobileController.value,
                                 capitalization: TextCapitalization.none,
@@ -127,14 +130,16 @@ class CheckInfoPage extends GetView<ProofController> {
                                 prefix: Padding(
                                   padding: const EdgeInsets.all(14.0),
                                   child: SvgPicture.asset(
-                                    DefaultImages.phone,
+                                    width: 50,
+                                    height: 50,
+                                    DefaultImages.idCardSvg,
                                     color: _focusNodes[1].hasFocus
                                         ? HexColor(AppTheme.primaryColorString!)
                                         : const Color(0xffA2A0A8),
                                     // color:  HexColor(AppTheme.secondaryColorString!)
                                   ),
                                 ),
-                                hintText: controller.userModel.value.idCard!,
+                                hintText: controller.userModel.value?.idCard ?? "Error",
                                 // inputType: TextInputType.phone,
                                 textEditingController: controller.mobileController.value,
                                 capitalization: TextCapitalization.none,
@@ -147,14 +152,16 @@ class CheckInfoPage extends GetView<ProofController> {
                                 prefix: Padding(
                                   padding: const EdgeInsets.all(14.0),
                                   child: SvgPicture.asset(
-                                    DefaultImages.phone,
+                                    width: 35,
+                                    height: 35,
+                                    DefaultImages.name,
                                     color: _focusNodes[1].hasFocus
                                         ? HexColor(AppTheme.primaryColorString!)
                                         : const Color(0xffA2A0A8),
                                     // color:  HexColor(AppTheme.secondaryColorString!)
                                   ),
                                 ),
-                                hintText: controller.userModel.value.fullName!,
+                                hintText: controller.userModel.value?.fullName ?? "Error",
                                 // inputType: TextInputType.phone,
                                 textEditingController: controller.mobileController.value,
                                 capitalization: TextCapitalization.none,
@@ -167,14 +174,16 @@ class CheckInfoPage extends GetView<ProofController> {
                                 prefix: Padding(
                                   padding: const EdgeInsets.all(14.0),
                                   child: SvgPicture.asset(
-                                    DefaultImages.phone,
+                                    width: 50,
+                                    height: 50,
+                                    DefaultImages.address,
                                     color: _focusNodes[1].hasFocus
                                         ? HexColor(AppTheme.primaryColorString!)
                                         : const Color(0xffA2A0A8),
                                     // color:  HexColor(AppTheme.secondaryColorString!)
                                   ),
                                 ),
-                                hintText: controller.userModel.value.address!,
+                                hintText: controller.userModel.value?.address ?? "Error",
                                 // inputType: TextInputType.phone,
                                 textEditingController: controller.mobileController.value,
                                 capitalization: TextCapitalization.none,
@@ -187,34 +196,16 @@ class CheckInfoPage extends GetView<ProofController> {
                                 prefix: Padding(
                                   padding: const EdgeInsets.all(14.0),
                                   child: SvgPicture.asset(
-                                    DefaultImages.phone,
+                                    DefaultImages.birthDay,
                                     color: _focusNodes[1].hasFocus
                                         ? HexColor(AppTheme.primaryColorString!)
                                         : const Color(0xffA2A0A8),
+                                    width: 50,
+                                    height: 50,
                                     // color:  HexColor(AppTheme.secondaryColorString!)
                                   ),
                                 ),
-                                hintText: controller.userModel.value.birthDay!,
-                                inputType: TextInputType.phone,
-                                textEditingController: controller.mobileController.value,
-                                capitalization: TextCapitalization.none,
-                                limit: [LengthLimitingTextInputFormatter(10), FilteringTextInputFormatter.digitsOnly],
-                              ),
-                              const SizedBox(height: 24),
-                              CustomTextFormField(
-                                focusNode: _focusNodes[1],
-                                readOnly: true,
-                                prefix: Padding(
-                                  padding: const EdgeInsets.all(14.0),
-                                  child: SvgPicture.asset(
-                                    DefaultImages.phone,
-                                    color: _focusNodes[1].hasFocus
-                                        ? HexColor(AppTheme.primaryColorString!)
-                                        : const Color(0xffA2A0A8),
-                                    // color:  HexColor(AppTheme.secondaryColorString!)
-                                  ),
-                                ),
-                                hintText: controller.userModel.value.city!,
+                                hintText: controller.userModel.value?.birthDay ?? "Error",
                                 // inputType: TextInputType.phone,
                                 textEditingController: controller.mobileController.value,
                                 capitalization: TextCapitalization.none,
@@ -227,14 +218,38 @@ class CheckInfoPage extends GetView<ProofController> {
                                 prefix: Padding(
                                   padding: const EdgeInsets.all(14.0),
                                   child: SvgPicture.asset(
-                                    DefaultImages.phone,
+                                    width: 50,
+                                    height: 50,
+                                    DefaultImages.city,
                                     color: _focusNodes[1].hasFocus
                                         ? HexColor(AppTheme.primaryColorString!)
                                         : const Color(0xffA2A0A8),
                                     // color:  HexColor(AppTheme.secondaryColorString!)
                                   ),
                                 ),
-                                hintText: controller.userModel.value.issueDate!,
+                                hintText: controller.userModel.value?.city ?? "Error",
+                                // inputType: TextInputType.phone,
+                                textEditingController: controller.mobileController.value,
+                                capitalization: TextCapitalization.none,
+                                limit: [LengthLimitingTextInputFormatter(10), FilteringTextInputFormatter.digitsOnly],
+                              ),
+                              const SizedBox(height: 24),
+                              CustomTextFormField(
+                                focusNode: _focusNodes[1],
+                                readOnly: true,
+                                prefix: Padding(
+                                  padding: const EdgeInsets.all(14.0),
+                                  child: SvgPicture.asset(
+                                    width: 50,
+                                    height: 50,
+                                    DefaultImages.issueDate,
+                                    color: _focusNodes[1].hasFocus
+                                        ? HexColor(AppTheme.primaryColorString!)
+                                        : const Color(0xffA2A0A8),
+                                    // color:  HexColor(AppTheme.secondaryColorString!)
+                                  ),
+                                ),
+                                hintText: controller.userModel.value?.issueDate ?? "Error",
                                 // inputType: TextInputType.phone,
                                 textEditingController: controller.mobileController.value,
                                 capitalization: TextCapitalization.none,
@@ -281,94 +296,15 @@ class CheckInfoPage extends GetView<ProofController> {
                               //   );
                               // }),
                               const SizedBox(height: 16),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  InkWell(
-                                    focusColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    splashColor: Colors.transparent,
-                                    onTap: () {},
-                                    child: Container(
-                                      height: 24,
-                                      width: 24,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(color: const Color(0xffDCDBE0)),
-                                          color: HexColor(AppTheme.primaryColorString!),
-                                          borderRadius: BorderRadius.circular(8)),
-                                      child: Icon(
-                                        Icons.check,
-                                        size: 15,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 16,
-                                  ),
-                                  Expanded(
-                                      child: RichText(
-                                    textAlign: TextAlign.left,
-                                    text: TextSpan(children: <TextSpan>[
-                                      TextSpan(
-                                        text: "By creating an account, you aggree to our ",
-                                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 14,
-                                              color: AppTheme.isLightTheme == false
-                                                  ? const Color(0xffA2A0A8)
-                                                  : const Color(0xff211F32),
-                                            ),
-                                      ),
-                                      TextSpan(
-                                          text: "Terms",
-                                          style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 14,
-                                              color: HexColor(AppTheme.primaryColorString!))),
-                                      TextSpan(
-                                        text: " and ",
-                                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 14,
-                                              color: AppTheme.isLightTheme == false
-                                                  ? const Color(0xffA2A0A8)
-                                                  : const Color(0xff211F32),
-                                            ),
-                                      ),
-                                      TextSpan(
-                                          text: "Conditions",
-                                          style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 14,
-                                              color: HexColor(AppTheme.primaryColorString!))),
-                                    ]),
-                                  )
-                                      // Text(
-                                      //   "By creating an account, you aggree to our Terms and Conditions",
-                                      //   maxLines: 3,
-                                      //   style: Theme.of(context)
-                                      //       .textTheme
-                                      //       .bodyText2!
-                                      //       .copyWith(
-                                      //         fontWeight: FontWeight.w500,
-                                      //         fontSize: 14,
-                                      //         color: Color(0xff211F32),
-                                      //       ),
-                                      // ),
-                                      )
-                                ],
-                              ),
+
                               const SizedBox(height: 32),
                               InkWell(
                                 focusColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 hoverColor: Colors.transparent,
                                 splashColor: Colors.transparent,
-                                onTap: () {},
-                                child: customButton(HexColor(AppTheme.primaryColorString!), "Sign Up",
+                                onTap: controller.goToSignupScreen,
+                                child: customButton(HexColor(AppTheme.primaryColorString!), "Confirm",
                                     HexColor(AppTheme.secondaryColorString!), context),
                               ),
                               InkWell(
@@ -376,23 +312,25 @@ class CheckInfoPage extends GetView<ProofController> {
                                 highlightColor: Colors.transparent,
                                 hoverColor: Colors.transparent,
                                 splashColor: Colors.transparent,
-                                onTap: () {},
+                                onTap: controller.reAuthentication,
                                 child: Padding(
                                   padding: const EdgeInsets.only(top: 24),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text("Already have an account? ",
+                                      Text("Incorrect information? ",
                                           style: Theme.of(context).textTheme.bodyText2!.copyWith(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 16,
                                               color: const Color(0xff9CA3AF))),
-                                      Text(" Login",
-                                          style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 16,
-                                                color: HexColor(AppTheme.primaryColorString!),
-                                              ))
+                                      Text(
+                                        " Try again",
+                                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16,
+                                              color: HexColor(AppTheme.primaryColorString!),
+                                            ),
+                                      )
                                     ],
                                   ),
                                 ),

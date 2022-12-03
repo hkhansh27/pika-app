@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-
 import '../otp/otp.dart';
 import '../login/login.dart';
 
@@ -10,7 +9,6 @@ class RegisterController extends GetxController {
   Rx<TextEditingController> pswdController = TextEditingController().obs;
   RxBool isVisible = false.obs;
 
-  final phoneController = TextEditingController().obs;
   final isAgree = false.obs;
 
   void onAgree() {
@@ -21,7 +19,7 @@ class RegisterController extends GetxController {
     Get.to(
       () => OtpPage(),
       binding: OtpBinding(),
-      arguments: phoneController.value.text,
+      arguments: mobileController.value.text,
       transition: Transition.rightToLeft,
       duration: const Duration(milliseconds: 500),
     );
@@ -29,7 +27,7 @@ class RegisterController extends GetxController {
 
   void goToLoginPage() {
     Get.to(
-      () => LoginPage(),
+      () => LoginScreen(),
       binding: LoginBinding(),
       transition: Transition.rightToLeft,
       duration: const Duration(milliseconds: 500),

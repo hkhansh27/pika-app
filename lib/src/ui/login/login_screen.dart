@@ -9,7 +9,7 @@ import '../../widgets/custom_textformfield.dart';
 import '../../../gen/assets.gen.dart';
 import 'controllers/login_controller.dart';
 
-class LoginPage extends GetView<LoginController> {
+class LoginScreen extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -158,7 +158,7 @@ class LoginPage extends GetView<LoginController> {
                               hoverColor: Colors.transparent,
                               splashColor: Colors.transparent,
                               onTap: () {
-                                controller.goToRegisterPage();
+                                controller.goToVerifyPhoneScreen();
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 24),

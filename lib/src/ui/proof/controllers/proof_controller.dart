@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:pika/src/data/api/models/response/ekyc/ekyc_addfile_response.dart';
 import 'package:pika/src/data/api/models/user_model.dart';
 import 'package:pika/src/data/repositories/ekyc_repository.dart';
+import 'package:pika/src/data/repositories/user_repository.dart';
+import 'package:pika/src/routes/app_pages.dart';
 import 'package:pika/src/ui/proof/check_info_screen.dart';
 import 'package:pika/src/ui/proof/upload_back_photo_screen.dart';
 import 'package:pika/src/ui/proof/upload_id_screen.dart';
@@ -15,9 +17,10 @@ class ProofController extends GetxController {
   Rx<TextEditingController> mobileController = TextEditingController().obs;
   Rx<TextEditingController> pswdController = TextEditingController().obs;
   RxBool isVisible = false.obs;
-  final Rx<UserModel> userModel = UserModel().obs;
+  final Rx<UserModel?> userModel = UserModel().obs;
 
   final _ekycRepo = Get.find<EkycRepository>();
+  final _userRepo = Get.find<UserRepository>();
 
   @override
   void onInit() {
@@ -86,7 +89,7 @@ class ProofController extends GetxController {
         );
       }
       if (currentStage == 'selfie') {
-        testInfo();
+        await testInfo();
         Get.off(
           CheckInfoPage(),
           transition: Transition.rightToLeft,
@@ -98,7 +101,7 @@ class ProofController extends GetxController {
     }
   }
 
-  void testInfo() {
+  Future<void> testInfo() async {
     // var info = await _ekycRepo.getInfo();
     // var compare = await _ekycRepo.compareFace();
 
@@ -113,14 +116,18 @@ class ProofController extends GetxController {
     // );
 
     //with mock data
-    userModel.value = UserModel(
-      idCard: '1234567899',
-      fullName: 'Huynh Huu Khanh',
-      address: 'Cho Gao, Tien Giang',
-      birthDay: '02/07/2001',
-      city: 'Tien Giang',
-      issueDate: '30/05/2016',
+    await _userRepo.updateUserInfo(
+      UserModel(
+        idCard: '1234567899',
+        fullName: 'Huynh Huu Khanh',
+        address: 'Cho Gao, Tien Giang',
+        birthDay: '02/07/2001',
+        city: 'Tien Giang',
+        issueDate: '30/05/2016',
+      ),
     );
+
+    userModel.value = await _userRepo.getUserInfo();
   }
 
   void uploadFile(XFile file, String title, String desc) async {
@@ -149,5 +156,23 @@ class ProofController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
       );
     }
+  }
+
+  void reAuthentication() {
+    Get.offAllNamed(AppRoutes.EKYC);
+  }
+
+  void goToOtpScreen() {
+    Get.toNamed(
+      AppRoutes.OTP,
+      arguments: mobileController.value.text,
+    );
+  }
+
+  void goToSignupScreen() {
+    Get.toNamed(
+      AppRoutes.REGISTER,
+      arguments: mobileController.value.text,
+    );
   }
 }

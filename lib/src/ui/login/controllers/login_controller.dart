@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:pika/src/ui/proof/proof_binding.dart';
+import 'package:pika/src/ui/proof/verify_phone_screen.dart';
 
 import '../../../data/repositories/user_repository.dart';
 import '../../register/register.dart';
@@ -15,10 +17,10 @@ class LoginController extends GetxController {
   final isPasswordVisible = false.obs;
   final _userRepo = Get.find<UserRepository>();
 
-  void goToRegisterPage() {
+  void goToVerifyPhoneScreen() {
     Get.to(
-      () => RegisterPage(),
-      binding: RegisterBinding(),
+      () => VerifyPhoneScreen(),
+      binding: ProofBinding(),
       transition: Transition.rightToLeft,
       duration: const Duration(milliseconds: 500),
     );

@@ -28,18 +28,18 @@ class UserModel {
   });
 
   UserModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    idCard = json['idCard'];
-    username = json['username'];
-    email = json['email'];
-    fullName = json['fullName'];
-    phone = json['phone'];
-    accountNo = json['accountNo'];
-    password = json['password'];
-    address = json['address'];
-    birthDay = json['birthDay'];
-    city = json['city'];
-    issueDate = json['issueDate'];
+    id = json['id']?.toString();
+    idCard = json['idCard']?.toString();
+    username = json['username']?.toString();
+    email = json['email']?.toString();
+    fullName = json['fullName']?.toString();
+    phone = json['phone']?.toString();
+    accountNo = json['accountNo']?.toString();
+    password = json['password']?.toString();
+    address = json['address']?.toString();
+    birthDay = json['birthDay']?.toString();
+    city = json['city']?.toString();
+    issueDate = json['issueDate']?.toString();
   }
 
   Map<String, dynamic> toJson() {

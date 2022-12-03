@@ -5,6 +5,8 @@ import 'package:pika/src/res/images.dart';
 import 'package:pika/src/res/textstyle.dart';
 import 'package:pika/src/routes/app_pages.dart';
 import 'package:pika/src/ui/login/login.dart';
+import 'package:pika/src/ui/proof/proof_binding.dart';
+import 'package:pika/src/ui/proof/verify_phone_screen.dart';
 import 'package:pika/src/widgets/custom_button.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -33,7 +35,7 @@ class WelcomeFirstScreen extends GetView {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    slideController.i.value == 0 ? "Welcome to FinPay" : "Budgeting",
+                    slideController.i.value == 0 ? "Welcome to Pika" : "Budgeting",
                     style: Theme.of(context).textTheme.bodyText2!.copyWith(
                           fontWeight: FontWeight.w500,
                           fontSize: 16,
@@ -42,7 +44,7 @@ class WelcomeFirstScreen extends GetView {
                   ),
                   InkWell(
                     onTap: () {
-                      Get.offAll(LoginPage());
+                      Get.offAll(LoginScreen());
                     },
                     child: Container(
                       height: 34,
@@ -161,7 +163,12 @@ class WelcomeFirstScreen extends GetView {
                 hoverColor: Colors.transparent,
                 splashColor: Colors.transparent,
                 onTap: () {
-                  Get.offAllNamed(AppRoutes.REGISTER);
+                  Get.to(
+                    () => VerifyPhoneScreen(),
+                    binding: ProofBinding(),
+                    transition: Transition.rightToLeft,
+                    duration: const Duration(milliseconds: 500),
+                  );
                 },
                 child: customButton(
                     AppTheme.isLightTheme == false ? const Color(0xff52525C) : const Color(0xffF5F7FE),

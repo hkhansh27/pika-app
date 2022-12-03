@@ -20,7 +20,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.LOGIN,
-      page: () => LoginPage(),
+      page: () => LoginScreen(),
       binding: LoginBinding(),
     ),
     GetPage(
@@ -30,7 +30,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.REGISTER,
-      page: () => RegisterPage(),
+      page: () => RegisterScreen(),
       binding: RegisterBinding(),
     ),
     GetPage(

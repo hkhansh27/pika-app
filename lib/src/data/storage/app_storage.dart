@@ -20,7 +20,12 @@ class AppStorage {
   }
 
   Future<void> saveUserInfo(UserModel userInfo) async {
-    await box.write(APP_USER_INFO, userInfo);
+    await box.erase();
+    await box.write(APP_USER_INFO, userInfo.toJson());
+  }
+
+  Future<void> eraseData() async {
+    return await box.erase();
   }
 
   Future<String?> getUserToken() async {
@@ -28,7 +33,7 @@ class AppStorage {
   }
 
   Future<UserModel?> getUserInfo() async {
-    final userInfoJson = await box.read(APP_USER_INFO);
-    return userInfoJson != null ? UserModel.fromJson(userInfoJson) : null;
+    final userInfo = box.read(APP_USER_INFO);
+    return userInfo != null ? UserModel.fromJson(userInfo) : null;
   }
 }

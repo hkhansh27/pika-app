@@ -3,6 +3,12 @@ class DefaultImages {
   static const String card = 'assets/images/card.svg';
   static const String chart = 'assets/images/chart.svg';
   static const String user = 'assets/images/user.svg';
+  static const String birthDay = 'assets/images/birthday.svg';
+  static const String idCardSvg = 'assets/images/idCard.svg';
+  static const String address = 'assets/images/homeLocation.svg';
+  static const String city = 'assets/images/city.svg';
+  static const String issueDate = 'assets/images/issueDate.svg';
+  static const String name = 'assets/images/name.svg';
   static const String avatar = 'assets/images/Avatar.png';
   static const String creditcard = 'assets/images/creditcard.svg';
   static const String debitcard = 'assets/images/debitcard.svg';
@@ -59,7 +65,7 @@ class DefaultImages {
   static const String darkChart1 = 'assets/images/darkChart1.svg';
   static const String darkChart2 = 'assets/images/darkChart2.svg';
   static const String transferDetail = 'assets/images/transferDetail.svg';
-  static const String logo = 'assets/images/Union.svg';
+  static const String logo = 'assets/images/pikaLogo.png';
   static const String login1 = 'assets/images/Image1.svg';
   static const String login2 = 'assets/images/Image2.svg';
   static const String text = 'assets/images/FinPay.svg';

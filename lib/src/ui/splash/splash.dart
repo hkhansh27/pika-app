@@ -42,15 +42,9 @@ class _SplashScreenState extends State<SplashScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 40,
-                  width: 40,
-                  child: SvgPicture.asset(DefaultImages.logo, color: HexColor(AppTheme.secondaryColorString!)),
-                ),
-                const SizedBox(width: 8),
-                SizedBox(
-                  height: 40,
-                  width: 130,
-                  child: SvgPicture.asset(DefaultImages.text, color: HexColor(AppTheme.secondaryColorString!)),
+                  height: 250,
+                  width: 250,
+                  child: Image.asset(DefaultImages.logo, color: HexColor(AppTheme.secondaryColorString!)),
                 ),
               ],
             ),
@@ -58,7 +52,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 48, right: 48, bottom: 20),
               child: Text(
-                "FinPay is a financial platform to manage your business and money.",
+                "Pika is a mobile app that allows you to send and receive money from others.",
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyText2!.copyWith(
                       fontWeight: FontWeight.w500,

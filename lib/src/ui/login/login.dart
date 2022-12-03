@@ -1,6 +1,6 @@
 export 'login_binding.dart';
 export 'controllers/login_controller.dart';
-export 'login_page.dart';
+export 'login_screen.dart';
 export 'authentication_controller.dart';
 export 'create_pin_screen.dart';
 export 'fingerprint_screen.dart';
