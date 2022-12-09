@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:pika/src/data/api/models/user_model.dart';
 
@@ -33,5 +35,39 @@ class UserRepository {
     userInfo.city = userModel.city;
     userInfo.issueDate = userModel.issueDate;
     await storage.saveUserInfo(userInfo);
+  }
+
+  Future<void> register(String username, String password, String email) async {
+    try {
+      var userInfo = await storage.getUserInfo();
+      // userInfo!.username = username;
+      // userInfo.password = password;
+      // userInfo.email = email;
+      //mock data
+      userInfo!.username = 'hkhansh27';
+      userInfo.password = 'Khanh@123';
+      userInfo.email = 'khanh201011@gmail.com';
+      // bool isSuccess = await _userService.register(userInfo);
+      //mock data
+      bool isSuccess = true;
+      if (isSuccess) {
+        await storage.saveUserInfo(userInfo);
+      } else {
+        throw Exception('Register failed');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<bool> changePassword(String newPassword) async {
+    try {
+      var userInfo = await storage.getUserInfo();
+      userInfo!.password = newPassword;
+      await storage.saveUserInfo(userInfo);
+      return true;
+    } catch (e) {
+      rethrow;
+    }
   }
 }

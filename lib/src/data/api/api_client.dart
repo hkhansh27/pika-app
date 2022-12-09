@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dio/dio.dart';
 
 import 'api_constants.dart';
@@ -38,6 +40,9 @@ class ApiClient {
 
   static Dio getDio() {
     var dio = Dio(instance.getBaseOptions());
+    //error handling
+    dio.interceptors.add(AppInterceptors(dio));
+    //log
     dio.interceptors.add(LogInterceptor(
       request: ENABLE_LOG,
       requestBody: ENABLE_LOG,

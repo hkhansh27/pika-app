@@ -1,6 +1,6 @@
 export 'home_binding.dart';
 export 'controllers/home_controller.dart';
-export 'home_view.dart';
+export 'home_screen.dart';
 export 'top_up_screen.dart';
 export 'topup_sucess_screen.dart';
 export 'controllers/transaction_controller.dart';

@@ -1,3 +1,4 @@
+import 'package:pika/src/data/api/models/response/auth/register_response.dart';
 import 'package:pika/src/data/api/models/response/login_response.dart';
 import 'package:pika/src/data/api/models/user_model.dart';
 
@@ -18,5 +19,24 @@ class UserService {
       return loginResponse.accessToken;
     }
     return null;
+  }
+
+  Future<bool> register(UserModel user) async {
+    try {
+      final response = await ApiClient.getDio().post(ApiConstants.REGISTER, data: {
+        "username": user.username,
+        "fullName": user.fullName,
+        "email": user.email,
+        "identityNumber": user.idCard,
+        "phone": user.phone,
+        "password": user.password,
+        "role": 0,
+      });
+
+      if (response.statusCode == 200) return true;
+      return false;
+    } catch (e) {
+      rethrow;
+    }
   }
 }

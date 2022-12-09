@@ -1,22 +1,21 @@
-import 'package:pika/src/res/images.dart';
-import 'package:pika/src/res/textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:pika/src/res/images.dart';
+import 'package:pika/src/res/textstyle.dart';
 import 'package:pika/src/ui/profile/chat_screen.dart';
+import 'package:pika/src/ui/profile/controllers/profile_controller.dart';
 import 'package:pika/src/ui/profile/edit_profile_screen.dart';
 import 'package:pika/src/ui/profile/setting_screen.dart';
 import 'package:pika/src/ui/profile/widget/income_container.dart';
 
-class ProfileView extends StatelessWidget {
-  const ProfileView({Key? key}) : super(key: key);
-
+class ProfileScreen extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     return Container(
       height: Get.height,
       width: Get.width,
-      color: AppTheme.isLightTheme == false ? HexColor('#15141f') : HexColor(AppTheme.primaryColorString!),
+      color: AppTheme.isLightTheme == false ? HexColor('#15141f') : HexColor(AppTheme.secondaryColorString!),
       child: Padding(
         padding: EdgeInsets.only(
           top: AppBar().preferredSize.height,
@@ -91,7 +90,7 @@ class ProfileView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Daniel Travis",
+                              controller.userModel.value?.fullName ?? 'Error',
                               style: Theme.of(context).textTheme.bodyText2!.copyWith(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w800,
@@ -126,10 +125,7 @@ class ProfileView extends StatelessWidget {
                         ),
                         const Expanded(child: SizedBox()),
                         InkWell(
-                          onTap: () {
-                            Get.to(const EditProfileScreen(),
-                                transition: Transition.downToUp, duration: const Duration(milliseconds: 500));
-                          },
+                          onTap: controller.goToEditProfile,
                           child: Text(
                             "Edit Profile",
                             style: Theme.of(context).textTheme.bodyText2!.copyWith(
@@ -178,7 +174,7 @@ class ProfileView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

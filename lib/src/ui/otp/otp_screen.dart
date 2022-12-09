@@ -7,26 +7,22 @@ import 'package:pinput/pinput.dart';
 import '../../res/textstyle.dart';
 import '../../widgets/custom_button.dart';
 
-class OtpPage extends GetView<OtpController> {
+class OtpScreen extends GetView<OtpController> {
   final defaultPinTheme = PinTheme(
     width: 66,
     height: 66,
     textStyle: TextStyle(
         fontSize: 32,
-        color: AppTheme.isLightTheme == false
-            ? Colors.white
-            : const Color(0xff15141F),
+        color: AppTheme.isLightTheme == false ? Colors.white : const Color(0xff15141F),
         fontWeight: FontWeight.w800),
     decoration: BoxDecoration(
-      color: AppTheme.isLightTheme == false
-          ? const Color(0xff211F32)
-          : const Color(0xffF9F9FA),
+      color: AppTheme.isLightTheme == false ? const Color(0xff211F32) : const Color(0xffF9F9FA),
       //border: Border.all(color: Color.fromRGBO(234, 239, 243, 1)),
       borderRadius: BorderRadius.circular(16),
     ),
   );
 
-  OtpPage({super.key});
+  OtpScreen({super.key});
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,9 +40,7 @@ class OtpPage extends GetView<OtpController> {
             FocusScope.of(context).requestFocus(FocusNode());
           },
           child: Container(
-            color: AppTheme.isLightTheme == false
-                ? const Color(0xff15141F)
-                : const Color(0xffFFFFFF),
+            color: AppTheme.isLightTheme == false ? const Color(0xff15141F) : const Color(0xffFFFFFF),
             child: Padding(
               padding: EdgeInsets.only(
                 left: 20,
@@ -73,34 +67,31 @@ class OtpPage extends GetView<OtpController> {
                       children: [
                         Text(
                           "OTP Authentication",
-                          style:
-                              Theme.of(context).textTheme.headline6!.copyWith(
-                                    fontWeight: FontWeight.w800,
-                                    fontSize: 24,
-                                  ),
+                          style: Theme.of(context).textTheme.headline6!.copyWith(
+                                fontWeight: FontWeight.w800,
+                                fontSize: 24,
+                              ),
                         ),
                         const SizedBox(
                           height: 4,
                         ),
                         Text(
                           "An authentication code has been sent to",
-                          style:
-                              Theme.of(context).textTheme.bodyText2!.copyWith(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16,
-                                    color: const Color(0xffA2A0A8),
-                                  ),
+                          style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                                color: const Color(0xffA2A0A8),
+                              ),
                         ),
                         const SizedBox(
                           height: 4,
                         ),
                         Text(
                           controller.phone,
-                          style:
-                              Theme.of(context).textTheme.bodyText2!.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16,
-                                  ),
+                          style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                              ),
                         ),
                         const SizedBox(
                           height: 32,
@@ -120,14 +111,11 @@ class OtpPage extends GetView<OtpController> {
                             highlightColor: Colors.transparent,
                             hoverColor: Colors.transparent,
                             splashColor: Colors.transparent,
-                            onTap: controller.isVerified.value
-                                ? () => controller.next()
-                                : null,
+                            onTap: controller.isVerified.value ? () => controller.next() : null,
                             child: customButton(
                                 controller.isVerified.value
                                     ? HexColor(AppTheme.primaryColorString!)
-                                    : HexColor(AppTheme.primaryColorString!)
-                                        .withOpacity(0.5),
+                                    : HexColor(AppTheme.primaryColorString!).withOpacity(0.5),
                                 "Continue",
                                 HexColor(AppTheme.secondaryColorString!),
                                 context),

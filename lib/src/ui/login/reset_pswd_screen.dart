@@ -97,7 +97,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             child: Padding(
                               padding: const EdgeInsets.all(14.0),
                               child: SvgPicture.asset(
-                                DefaultImages.eye,
+                                DefaultImages.eyeClose,
                                 // color:  HexColor(AppTheme.secondaryColorString!)
                               ),
                             ),
@@ -131,7 +131,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             child: Padding(
                               padding: const EdgeInsets.all(14.0),
                               child: SvgPicture.asset(
-                                DefaultImages.eye,
+                                DefaultImages.eyeClose,
                                 // color:  HexColor(AppTheme.secondaryColorString!)
                               ),
                             ),

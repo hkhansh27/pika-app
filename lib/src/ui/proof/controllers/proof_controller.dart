@@ -1,7 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:pika/src/data/api/models/response/ekyc/ekyc_addfile_response.dart';
 import 'package:pika/src/data/api/models/user_model.dart';
 import 'package:pika/src/data/repositories/ekyc_repository.dart';
 import 'package:pika/src/data/repositories/user_repository.dart';
@@ -18,6 +17,9 @@ class ProofController extends GetxController {
   Rx<TextEditingController> pswdController = TextEditingController().obs;
   RxBool isVisible = false.obs;
   final Rx<UserModel?> userModel = UserModel().obs;
+  final phone = ''.obs;
+  final phoneError = RxnString();
+  final phoneFocus = FocusNode();
 
   final _ekycRepo = Get.find<EkycRepository>();
   final _userRepo = Get.find<UserRepository>();
@@ -26,7 +28,20 @@ class ProofController extends GetxController {
   void onInit() {
     super.onInit();
     initCamera();
+    ever<String>(phone, validatePhone);
   }
+
+  void validatePhone(String phone) {
+    String pattern = r'(^(?:[+0]9)?[0-9]{10}$)';
+    RegExp regex = RegExp(pattern);
+    if (phone.isEmpty || !regex.hasMatch(phone)) {
+      phoneError.value = 'Please enter a valid number phone!';
+    } else {
+      phoneError.value = null;
+    }
+  }
+
+  bool get enableButton => phoneError.value == null && phone.value.isNotEmpty;
 
   Future<void> initCamera() async {
     _cameras = await availableCameras();
@@ -174,5 +189,9 @@ class ProofController extends GetxController {
       AppRoutes.REGISTER,
       arguments: mobileController.value.text,
     );
+  }
+
+  void goToLoginPage() {
+    Get.offAllNamed(AppRoutes.LOGIN);
   }
 }

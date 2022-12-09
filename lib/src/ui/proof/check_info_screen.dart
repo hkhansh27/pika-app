@@ -108,7 +108,7 @@ class CheckInfoPage extends GetView<ProofController> {
                                   padding: const EdgeInsets.all(14.0),
                                   child: SvgPicture.asset(
                                     width: 50,
-                                    height: 50,
+                                    height: 20,
                                     DefaultImages.phone,
                                     color: _focusNodes[1].hasFocus
                                         ? HexColor(AppTheme.primaryColorString!)
@@ -131,7 +131,7 @@ class CheckInfoPage extends GetView<ProofController> {
                                   padding: const EdgeInsets.all(14.0),
                                   child: SvgPicture.asset(
                                     width: 50,
-                                    height: 50,
+                                    height: 20,
                                     DefaultImages.idCardSvg,
                                     color: _focusNodes[1].hasFocus
                                         ? HexColor(AppTheme.primaryColorString!)
@@ -153,7 +153,7 @@ class CheckInfoPage extends GetView<ProofController> {
                                   padding: const EdgeInsets.all(14.0),
                                   child: SvgPicture.asset(
                                     width: 35,
-                                    height: 35,
+                                    height: 20,
                                     DefaultImages.name,
                                     color: _focusNodes[1].hasFocus
                                         ? HexColor(AppTheme.primaryColorString!)
@@ -175,7 +175,7 @@ class CheckInfoPage extends GetView<ProofController> {
                                   padding: const EdgeInsets.all(14.0),
                                   child: SvgPicture.asset(
                                     width: 50,
-                                    height: 50,
+                                    height: 20,
                                     DefaultImages.address,
                                     color: _focusNodes[1].hasFocus
                                         ? HexColor(AppTheme.primaryColorString!)
@@ -201,7 +201,7 @@ class CheckInfoPage extends GetView<ProofController> {
                                         ? HexColor(AppTheme.primaryColorString!)
                                         : const Color(0xffA2A0A8),
                                     width: 50,
-                                    height: 50,
+                                    height: 20,
                                     // color:  HexColor(AppTheme.secondaryColorString!)
                                   ),
                                 ),
@@ -219,7 +219,7 @@ class CheckInfoPage extends GetView<ProofController> {
                                   padding: const EdgeInsets.all(14.0),
                                   child: SvgPicture.asset(
                                     width: 50,
-                                    height: 50,
+                                    height: 20,
                                     DefaultImages.city,
                                     color: _focusNodes[1].hasFocus
                                         ? HexColor(AppTheme.primaryColorString!)
@@ -241,7 +241,7 @@ class CheckInfoPage extends GetView<ProofController> {
                                   padding: const EdgeInsets.all(14.0),
                                   child: SvgPicture.asset(
                                     width: 50,
-                                    height: 50,
+                                    height: 20,
                                     DefaultImages.issueDate,
                                     color: _focusNodes[1].hasFocus
                                         ? HexColor(AppTheme.primaryColorString!)

@@ -10,6 +10,7 @@ class CustomTextField extends StatelessWidget {
   final Color? color;
   final TextEditingController? textEditingController;
   final bool isObsecure;
+  final bool readOnly;
   final Widget? sufix;
   final TextInputType? inputType;
   const CustomTextField(
@@ -20,6 +21,7 @@ class CustomTextField extends StatelessWidget {
       this.color,
       this.textEditingController,
       this.isObsecure = false,
+      this.readOnly = false,
       this.sufix,
       this.inputType})
       : super(key: key);
@@ -29,12 +31,12 @@ class CustomTextField extends StatelessWidget {
     return Container(
       height: 56,
       width: Get.width,
-      decoration: BoxDecoration(
-          color: color!, borderRadius: BorderRadius.circular(radius!)),
+      decoration: BoxDecoration(color: color!, borderRadius: BorderRadius.circular(radius!)),
       child: TextFormField(
         keyboardType: inputType,
         obscureText: isObsecure,
         controller: textEditingController,
+        readOnly: readOnly,
         style: Theme.of(context).textTheme.bodyText1!.copyWith(
               fontSize: 16,
               fontWeight: FontWeight.w600,

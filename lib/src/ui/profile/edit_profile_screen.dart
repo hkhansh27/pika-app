@@ -1,19 +1,16 @@
-import 'package:pika/src/res/images.dart';
-import 'package:pika/src/res/textstyle.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:pika/src/widgets/custom_container.dart';
+import 'package:pika/src/res/images.dart';
+import 'package:pika/src/res/textstyle.dart';
 import 'package:pika/src/widgets/custom_textfield.dart';
 
-class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen({Key? key}) : super(key: key);
+import '../../widgets/custom_button.dart';
+import '../../widgets/custom_textformfield.dart';
+import 'controllers/profile_controller.dart';
 
-  @override
-  State<EditProfileScreen> createState() => _EditProfileScreenState();
-}
-
-class _EditProfileScreenState extends State<EditProfileScreen> {
+class EditProfileScreen extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,9 +20,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             : HexColor(AppTheme.primaryColorString!).withOpacity(0.05),
         elevation: 0,
         leading: InkWell(
-          onTap: () {
-            Navigator.pop(context);
-          },
+          onTap: controller.backScreen,
           child: Icon(
             Icons.arrow_back,
             color: Theme.of(context).textTheme.headline6!.color,
@@ -91,8 +86,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ),
                         color: AppTheme.isLightTheme == false ? const Color(0xff211F32) : const Color(0xffF9F9FA),
                         radius: 16,
-                        textEditingController: TextEditingController(text: "Daniel Travis"),
+                        textEditingController: TextEditingController(
+                          text: controller.userModel.value!.fullName,
+                        ),
                         inputType: TextInputType.name,
+                        readOnly: true,
                       ),
                       const SizedBox(height: 24),
                       CustomTextField(
@@ -105,29 +103,57 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ),
                         color: AppTheme.isLightTheme == false ? const Color(0xff211F32) : const Color(0xffF9F9FA),
                         radius: 16,
-                        textEditingController: TextEditingController(text: "0812 345 6789"),
+                        readOnly: true,
+                        textEditingController: TextEditingController(
+                          text: controller.userModel.value!.phone,
+                        ),
                         inputType: TextInputType.number,
                       ),
                       const SizedBox(height: 24),
-                      CustomTextField(
-                        hintText: "Enter password",
-                        widget: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: SvgPicture.asset(
-                            DefaultImages.lock,
+                      Obx(
+                        () => CustomTextFormField(
+                          focusNode: controller.passwordFocus,
+                          prefix: Padding(
+                            padding: const EdgeInsets.all(14.0),
+                            child: SvgPicture.asset(
+                              DefaultImages.pswd,
+                              width: 50,
+                              height: 20,
+                              color: controller.passwordFocus.hasFocus
+                                  ? HexColor(AppTheme.primaryColorString!)
+                                  : const Color(0xffA2A0A8),
+                              // color:  HexColor(AppTheme.secondaryColorString!)
+                            ),
                           ),
-                        ),
-                        color: AppTheme.isLightTheme == false ? const Color(0xff211F32) : const Color(0xffF9F9FA),
-                        radius: 16,
-                        textEditingController: TextEditingController(text: "1234567"),
-                        isObsecure: true,
-                        sufix: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: SvgPicture.asset(
-                            DefaultImages.invisible,
+                          sufix: Padding(
+                            padding: const EdgeInsets.all(14.0),
+                            child: InkWell(
+                              onTap: controller.passwordVisible,
+                              child: SvgPicture.asset(
+                                controller.isPasswordVisible.value == true
+                                    ? DefaultImages.eyeOpen
+                                    : DefaultImages.eyeClose,
+                                width: 50,
+                                height: 20,
+                                color: controller.passwordFocus.hasFocus
+                                    ? HexColor(AppTheme.primaryColorString!)
+                                    : const Color(0xffA2A0A8),
+                              ),
+                            ),
                           ),
+                          onChangedFunc: (value) {
+                            controller.password.value = value;
+                          },
+                          initialValue: controller.userModel.value!.password,
+                          inputType: TextInputType.visiblePassword,
+                          errorText: controller.passwordError.value,
+                          obscure: controller.isPasswordVisible.value,
+                          capitalization: TextCapitalization.none,
+                          limit: [
+                            LengthLimitingTextInputFormatter(10),
+                            FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9]')),
+                          ],
                         ),
-                        inputType: TextInputType.visiblePassword,
                       ),
                       const SizedBox(height: 24),
                       CustomTextField(
@@ -140,7 +166,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ),
                         color: AppTheme.isLightTheme == false ? const Color(0xff211F32) : const Color(0xffF9F9FA),
                         radius: 16,
-                        textEditingController: TextEditingController(text: "Indonesian"),
+                        textEditingController: TextEditingController(text: "Vietnamese"),
                         sufix: Padding(
                           padding: const EdgeInsets.only(top: 16, right: 15),
                           child: Text(
@@ -161,20 +187,25 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(
-              left: 20,
-              right: 20,
-              top: 20,
-              bottom: MediaQuery.of(context).padding.bottom + 14,
+          Obx(
+            () => Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: InkWell(
+                focusColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                splashColor: Colors.transparent,
+                onTap: controller.validPassword ? () => controller.changePassword() : null,
+                child: customButton(
+                    controller.validPassword
+                        ? HexColor(AppTheme.primaryColorString!)
+                        : HexColor(AppTheme.primaryColorString!).withOpacity(0.5),
+                    "Save changes",
+                    HexColor(AppTheme.secondaryColorString!),
+                    context),
+              ),
             ),
-            child: CustomButton(
-              title: "Save changes",
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-          )
+          ),
         ],
       ),
     );

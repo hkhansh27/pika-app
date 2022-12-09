@@ -6,12 +6,9 @@ import 'package:pika/src/res/images.dart';
 import 'package:pika/src/res/textstyle.dart';
 import 'package:pika/src/ui/home/home.dart';
 
-class HomeView extends GetView<HomeController> {
+class HomeScreen extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
-    //remove
-    Get.put(HomeController());
-
     return Scaffold(
       body: Container(
         color: AppTheme.isLightTheme == false ? const Color(0xff15141F) : Colors.white,

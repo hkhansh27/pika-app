@@ -4,17 +4,28 @@ import 'package:pika/src/data/api/models/transaction_model.dart';
 import 'package:pika/src/res/images.dart';
 import 'package:pika/src/res/textstyle.dart';
 
+import '../../../data/api/models/user_model.dart';
+import '../../../data/repositories/user_repository.dart';
+
 class HomeController extends GetxController {
   List<TransactionModel> transactionList = List<TransactionModel>.empty().obs;
   RxBool isWeek = true.obs;
   RxBool isMonth = false.obs;
   RxBool isYear = false.obs;
   RxBool isAdd = false.obs;
+  final Rx<UserModel?> userModel = UserModel().obs;
+
+  final _userRepo = Get.find<UserRepository>();
 
   @override
   void onInit() {
     super.onInit();
     customInit();
+    getUserInfo();
+  }
+
+  Future<void> getUserInfo() async {
+    userModel.value = await _userRepo.getUserInfo();
   }
 
   customInit() {

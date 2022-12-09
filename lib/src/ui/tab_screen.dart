@@ -6,7 +6,7 @@ import 'package:pika/src/res/images.dart';
 import 'package:pika/src/res/textstyle.dart';
 import 'package:pika/src/ui/card/card_view.dart';
 import 'package:pika/src/ui/home/home.dart';
-import 'package:pika/src/ui/home/home_view.dart';
+import 'package:pika/src/ui/home/home_screen.dart';
 import 'package:pika/src/ui/statistics/statistics_view.dart';
 
 import 'profile/profile_view.dart';
@@ -98,7 +98,7 @@ class TabScreen extends GetView<TabScreenController> {
                             : HexColor(AppTheme.primaryColorString!).withOpacity(0.4),
                   ),
                 ),
-                label: "profile"),
+                label: "Profile"),
           ],
 
           // height: 60,
@@ -271,12 +271,12 @@ class TabScreen extends GetView<TabScreenController> {
       body: GetX<TabScreenController>(
         init: controller,
         builder: (controller) => controller.pageIndex.value == 0
-            ? HomeView()
+            ? HomeScreen()
             : controller.pageIndex.value == 1
                 ? const StatisticsView()
                 : controller.pageIndex.value == 2
                     ? const CardView()
-                    : const ProfileView(),
+                    : ProfileScreen(),
       ),
     );
   }

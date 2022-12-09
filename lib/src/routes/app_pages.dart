@@ -1,13 +1,13 @@
 import 'package:get/get.dart';
 import 'package:pika/src/ui/proof/proof_binding.dart';
-import 'package:pika/src/ui/proof/residency_proof_screen.dart';
 import 'package:pika/src/ui/splash/splash.dart';
+import 'package:pika/src/ui/tab_screen.dart';
 
 import '../ui/home/home.dart';
 import '../ui/login/login.dart';
-import '../ui/register/register.dart';
 import '../ui/otp/otp.dart';
-import '../ui/ekyc/ekyc.dart';
+import '../ui/profile/profile_binding.dart';
+import '../ui/register/register.dart';
 
 part 'app_routes.dart';
 
@@ -25,8 +25,11 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.HOME,
-      page: () => HomeView(),
-      binding: HomeBinding(),
+      page: () => TabScreen(),
+      bindings: [
+        HomeBinding(),
+        ProfileBinding(),
+      ],
     ),
     GetPage(
       name: AppRoutes.REGISTER,
@@ -35,7 +38,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.OTP,
-      page: () => OtpPage(),
+      page: () => OtpScreen(),
       binding: OtpBinding(),
     ),
     GetPage(

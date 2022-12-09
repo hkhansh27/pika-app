@@ -101,6 +101,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/Withdraw.svg
   SvgGenImage get withdraw => const SvgGenImage('assets/images/Withdraw.svg');
 
+  /// File path: assets/images/birthday.svg
+  SvgGenImage get birthday => const SvgGenImage('assets/images/birthday.svg');
+
   /// File path: assets/images/call.svg
   SvgGenImage get call => const SvgGenImage('assets/images/call.svg');
 
@@ -134,6 +137,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/chatcsDark.svg
   SvgGenImage get chatcsDark =>
       const SvgGenImage('assets/images/chatcsDark.svg');
+
+  /// File path: assets/images/city.svg
+  SvgGenImage get city => const SvgGenImage('assets/images/city.svg');
 
   /// File path: assets/images/createpin.png
   AssetGenImage get createpin =>
@@ -190,6 +196,12 @@ class $AssetsImagesGen {
   SvgGenImage get digitalDoc =>
       const SvgGenImage('assets/images/digital_doc.svg');
 
+  /// File path: assets/images/email.svg
+  SvgGenImage get email => const SvgGenImage('assets/images/email.svg');
+
+  /// File path: assets/images/eyeOpen.svg
+  SvgGenImage get eyeOpen => const SvgGenImage('assets/images/eyeOpen.svg');
+
   /// File path: assets/images/facebookDark.svg
   SvgGenImage get facebookDark =>
       const SvgGenImage('assets/images/facebookDark.svg');
@@ -208,6 +220,13 @@ class $AssetsImagesGen {
   /// File path: assets/images/home.svg
   SvgGenImage get home => const SvgGenImage('assets/images/home.svg');
 
+  /// File path: assets/images/homeLocation.svg
+  SvgGenImage get homeLocation =>
+      const SvgGenImage('assets/images/homeLocation.svg');
+
+  /// File path: assets/images/idCard.svg
+  SvgGenImage get idCard => const SvgGenImage('assets/images/idCard.svg');
+
   /// File path: assets/images/idProof.svg
   SvgGenImage get idProof => const SvgGenImage('assets/images/idProof.svg');
 
@@ -225,6 +244,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/invisible.svg
   SvgGenImage get invisible => const SvgGenImage('assets/images/invisible.svg');
 
+  /// File path: assets/images/issueDate.svg
+  SvgGenImage get issueDate => const SvgGenImage('assets/images/issueDate.svg');
+
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
@@ -235,8 +257,15 @@ class $AssetsImagesGen {
   SvgGenImage get mastercard =>
       const SvgGenImage('assets/images/mastercard.svg');
 
+  /// File path: assets/images/name.svg
+  SvgGenImage get name => const SvgGenImage('assets/images/name.svg');
+
   /// File path: assets/images/passport.svg
   SvgGenImage get passport => const SvgGenImage('assets/images/passport.svg');
+
+  /// File path: assets/images/pikaLogo.png
+  AssetGenImage get pikaLogo =>
+      const AssetGenImage('assets/images/pikaLogo.png');
 
   /// File path: assets/images/profile.png
   AssetGenImage get profilePng =>
@@ -364,6 +393,7 @@ class $AssetsImagesGen {
         twitter,
         union,
         withdraw,
+        birthday,
         call,
         camera,
         card,
@@ -374,6 +404,7 @@ class $AssetsImagesGen {
         chart2,
         chatDialog,
         chatcsDark,
+        city,
         createpin,
         creditcard,
         creditcard1,
@@ -389,20 +420,27 @@ class $AssetsImagesGen {
         darkwc2,
         debitcard,
         digitalDoc,
+        email,
+        eyeOpen,
         facebookDark,
         finCardDark,
         fincard,
         fingerBg,
         home,
+        homeLocation,
+        idCard,
         idProof,
         identity,
         identityCard,
         instagramDark,
         invisible,
+        issueDate,
         logo,
         map,
         mastercard,
+        name,
         passport,
+        pikaLogo,
         profilePng,
         profileSvg,
         profileUser,

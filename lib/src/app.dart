@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 import 'routes/app_pages.dart';
@@ -18,6 +19,7 @@ class MyApp extends GetWidget<AppController> {
           initialRoute: _getRoute(),
           getPages: AppPages.pages,
           defaultTransition: Transition.fadeIn,
+          builder: EasyLoading.init(),
         ),
       ),
       onTap: () {

@@ -73,7 +73,9 @@ class DefaultImages {
   static const String wc2 = 'assets/images/wlcm2.png';
   static const String phone = 'assets/images/call.svg';
   static const String pswd = 'assets/images/Lock.svg';
-  static const String eye = 'assets/images/Eye Slash.svg';
+  static const String email = 'assets/images/email.svg';
+  static const String eyeClose = 'assets/images/Eye Slash.svg';
+  static const String eyeOpen = 'assets/images/eyeOpen.svg';
   static const String ggl = 'assets/images/Google icon.svg';
   static const String userName = 'assets/images/userName.svg';
   static const String identity = 'assets/images/identity.svg';
