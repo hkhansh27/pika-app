@@ -39,4 +39,25 @@ class UserService {
       rethrow;
     }
   }
+
+  Future<bool> changePassword(String username, String oldPass, String newPass) async {
+    try {
+      final response = await ApiClient.getDio().post(ApiConstants.CHANGE_PASSWORD, data: {
+        "username": username,
+        "oldPassword": oldPass,
+        "newPassword": newPass,
+      });
+
+      if (response.statusCode == 200) {
+        if (response.data == 'true') {
+          return true;
+        } else {
+          throw Exception('Change password failed');
+        }
+      }
+      return false;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

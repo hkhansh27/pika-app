@@ -58,10 +58,9 @@ class ProfileController extends GetxController {
 
   Future<void> changePassword() async {
     try {
+      EasyLoading.show(status: 'Changing...');
       if (validPassword) {
-        EasyLoading.show(status: 'Changing...');
         bool isSuccess = await _userRepo.changePassword(password.value);
-        EasyLoading.dismiss();
         if (isSuccess) {
           Get.back();
           Get.snackbar(
@@ -83,6 +82,7 @@ class ProfileController extends GetxController {
         colorText: Colors.white,
       );
     }
+    EasyLoading.dismiss();
   }
 
   void refreshData() {

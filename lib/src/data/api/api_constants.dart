@@ -12,6 +12,7 @@ class ApiConstants {
   //auth
   static const LOGIN = "/Auth/login";
   static const REGISTER = "/Auth/register";
+  static const CHANGE_PASSWORD = "/Auth/change_password";
 
   //ekyc
   static const EKYC_ADDFILE = "/file-service/v1/addFile";

@@ -81,26 +81,7 @@ class CheckInfoPage extends GetView<ProofController> {
                         Obx(
                           () => Column(
                             children: [
-                              //   const SizedBox(height: 20),
-                              // CustomTextFormField(
-                              //   focusNode: _focusNodes[0],
-                              //   prefix: Padding(
-                              //     padding: const EdgeInsets.all(14.0),
-                              //     child: SvgPicture.asset(
-                              //       DefaultImages.userName,
-                              //       color: _focusNodes[0].hasFocus
-                              //           ? HexColor(AppTheme.primaryColorString!)
-                              //           : const Color(0xffA2A0A8),
-                              //       // color:  HexColor(AppTheme.secondaryColorString!)
-                              //     ),
-                              //   ),
-                              //   hintText: "Full Name",
-                              //   inputType: TextInputType.text,
-                              //   textEditingController: controller.nameController.value,
-                              //   capitalization: TextCapitalization.words,
-                              //   limit: [FilteringTextInputFormatter.allow(RegExp('[a-zA-Z ]'))],
-                              // ),
-                              // const SizedBox(height: 24),
+                              const SizedBox(height: 14),
                               CustomTextFormField(
                                 focusNode: _focusNodes[1],
                                 readOnly: true,
@@ -123,7 +104,7 @@ class CheckInfoPage extends GetView<ProofController> {
                                 limit: [LengthLimitingTextInputFormatter(10), FilteringTextInputFormatter.digitsOnly],
                               ),
 
-                              const SizedBox(height: 24),
+                              const SizedBox(height: 14),
                               CustomTextFormField(
                                 focusNode: _focusNodes[1],
                                 readOnly: true,
@@ -145,7 +126,7 @@ class CheckInfoPage extends GetView<ProofController> {
                                 capitalization: TextCapitalization.none,
                                 limit: [LengthLimitingTextInputFormatter(10), FilteringTextInputFormatter.digitsOnly],
                               ),
-                              const SizedBox(height: 24),
+                              const SizedBox(height: 14),
                               CustomTextFormField(
                                 focusNode: _focusNodes[1],
                                 readOnly: true,
@@ -167,7 +148,7 @@ class CheckInfoPage extends GetView<ProofController> {
                                 capitalization: TextCapitalization.none,
                                 limit: [LengthLimitingTextInputFormatter(10), FilteringTextInputFormatter.digitsOnly],
                               ),
-                              const SizedBox(height: 24),
+                              const SizedBox(height: 14),
                               CustomTextFormField(
                                 focusNode: _focusNodes[1],
                                 readOnly: true,
@@ -189,7 +170,7 @@ class CheckInfoPage extends GetView<ProofController> {
                                 capitalization: TextCapitalization.none,
                                 limit: [LengthLimitingTextInputFormatter(10), FilteringTextInputFormatter.digitsOnly],
                               ),
-                              const SizedBox(height: 24),
+                              const SizedBox(height: 14),
                               CustomTextFormField(
                                 focusNode: _focusNodes[1],
                                 readOnly: true,
@@ -211,7 +192,7 @@ class CheckInfoPage extends GetView<ProofController> {
                                 capitalization: TextCapitalization.none,
                                 limit: [LengthLimitingTextInputFormatter(10), FilteringTextInputFormatter.digitsOnly],
                               ),
-                              const SizedBox(height: 24),
+                              const SizedBox(height: 14),
                               CustomTextFormField(
                                 focusNode: _focusNodes[1],
                                 readOnly: true,
@@ -233,7 +214,7 @@ class CheckInfoPage extends GetView<ProofController> {
                                 capitalization: TextCapitalization.none,
                                 limit: [LengthLimitingTextInputFormatter(10), FilteringTextInputFormatter.digitsOnly],
                               ),
-                              const SizedBox(height: 24),
+                              const SizedBox(height: 14),
                               CustomTextFormField(
                                 focusNode: _focusNodes[1],
                                 readOnly: true,
@@ -255,7 +236,7 @@ class CheckInfoPage extends GetView<ProofController> {
                                 capitalization: TextCapitalization.none,
                                 limit: [LengthLimitingTextInputFormatter(10), FilteringTextInputFormatter.digitsOnly],
                               ),
-                              // const SizedBox(height: 24),
+                              // const SizedBox(height: 14),
                               // Obx(() {
                               //   return CustomTextFormField(
                               //     focusNode: _focusNodes[2],
@@ -296,8 +277,6 @@ class CheckInfoPage extends GetView<ProofController> {
                               //   );
                               // }),
                               const SizedBox(height: 16),
-
-                              const SizedBox(height: 32),
                               InkWell(
                                 focusColor: Colors.transparent,
                                 highlightColor: Colors.transparent,

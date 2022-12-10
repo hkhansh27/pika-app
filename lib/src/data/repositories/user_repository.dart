@@ -63,7 +63,15 @@ class UserRepository {
   Future<bool> changePassword(String newPassword) async {
     try {
       var userInfo = await storage.getUserInfo();
-      userInfo!.password = newPassword;
+      var isSuccess = await _userService.changePassword(
+        userInfo!.username!,
+        userInfo.password!,
+        newPassword,
+      );
+      if (isSuccess == false) {
+        throw Exception('Change password failed');
+      }
+      userInfo.password = newPassword;
       await storage.saveUserInfo(userInfo);
       return true;
     } catch (e) {

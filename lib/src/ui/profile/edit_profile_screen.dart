@@ -151,7 +151,6 @@ class EditProfileScreen extends GetView<ProfileController> {
                           capitalization: TextCapitalization.none,
                           limit: [
                             LengthLimitingTextInputFormatter(10),
-                            FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9]')),
                           ],
                         ),
                       ),
