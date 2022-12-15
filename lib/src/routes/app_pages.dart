@@ -42,6 +42,11 @@ class AppPages {
       binding: OtpBinding(),
     ),
     GetPage(
+      name: AppRoutes.FINGERPRINT,
+      page: () => FingerPrintScreen(),
+      binding: LoginBinding(),
+    ),
+    GetPage(
       name: AppRoutes.EKYC,
       page: () => VerifyIdentityScreen(),
       binding: ProofBinding(),

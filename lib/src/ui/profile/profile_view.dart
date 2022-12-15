@@ -48,7 +48,7 @@ class ProfileScreen extends GetView<ProfileController> {
                         InkWell(
                           onTap: () {
                             Get.to(
-                              const SettingScreen(),
+                              SettingScreen(),
                               transition: Transition.downToUp,
                               duration: const Duration(milliseconds: 500),
                             );

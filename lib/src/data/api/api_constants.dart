@@ -5,10 +5,10 @@ class ApiConstants {
   static const String EKYC_TOKENKEY =
       "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALrRKXisljsJFBPkXaYq5JmN2QyJJLBXxdA8U7r293RvtT7k1ei+M7WYGHnr48J5DJADSrqCppVQm6B9JM9ys4MCAwEAAQ==";
 
-  static const BASE_URL = "https://10.0.2.2:17200/api/v1";
+  static const BASE_URL = "https://10.8.0.6:17200/api/v1";
   static const EKYC_URL = "https://api.idg.vnpt.vn";
-  // Endpoints
 
+  // Endpoints
   //auth
   static const LOGIN = "/Auth/login";
   static const REGISTER = "/Auth/register";

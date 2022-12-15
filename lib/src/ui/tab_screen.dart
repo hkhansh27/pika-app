@@ -54,7 +54,7 @@ class TabScreen extends GetView<TabScreenController> {
                           : HexColor(AppTheme.primaryColorString!).withOpacity(0.4),
                 ),
               ),
-              label: "home",
+              label: "Home",
             ),
             BottomNavigationBarItem(
               icon: SizedBox(

@@ -3,10 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../../../gen/assets.gen.dart';
+import '../../res/images.dart';
 import '../../res/textstyle.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_textformfield.dart';
-import '../../../gen/assets.gen.dart';
 import 'controllers/login_controller.dart';
 
 class LoginScreen extends GetView<LoginController> {
@@ -67,7 +68,6 @@ class LoginScreen extends GetView<LoginController> {
                       children: [
                         Column(
                           children: [
-                            const SizedBox(height: 30),
                             Obx(() {
                               return CustomTextFormField(
                                 prefix: Padding(
@@ -77,8 +77,8 @@ class LoginScreen extends GetView<LoginController> {
                                     // color:  HexColor(AppTheme.secondaryColorString!)
                                   ),
                                 ),
-                                hintText: "Phone Number",
-                                inputType: TextInputType.phone,
+                                hintText: "Username",
+                                inputType: TextInputType.name,
                                 textEditingController: controller.usernameController.value,
                                 capitalization: TextCapitalization.none,
                               );
@@ -152,6 +152,29 @@ class LoginScreen extends GetView<LoginController> {
                               child: customButton(HexColor(AppTheme.primaryColorString!), "Login",
                                   HexColor(AppTheme.secondaryColorString!), context),
                             ),
+                            //login by finger print
+                            const SizedBox(height: 16),
+                            InkWell(
+                              focusColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              splashColor: Colors.transparent,
+                              onTap: controller.handleNextRoute,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 20.0),
+                                child: Container(
+                                  height: 120,
+                                  width: 120,
+                                  decoration: const BoxDecoration(shape: BoxShape.circle),
+                                  child: SvgPicture.asset(
+                                    AppTheme.isLightTheme == false
+                                        ? DefaultImages.darkScanner
+                                        : DefaultImages.fingerPrint,
+                                    //color:  HexColor(AppTheme.secondaryColorString!)
+                                  ),
+                                ),
+                              ),
+                            ),
                             InkWell(
                               focusColor: Colors.transparent,
                               highlightColor: Colors.transparent,
@@ -160,22 +183,19 @@ class LoginScreen extends GetView<LoginController> {
                               onTap: () {
                                 controller.goToVerifyPhoneScreen();
                               },
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 24),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text("Don’t have account?",
-                                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                                            fontWeight: FontWeight.w600, fontSize: 16, color: const Color(0xff9CA3AF))),
-                                    Text(" Sign Up",
-                                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 16,
-                                              color: HexColor(AppTheme.primaryColorString!),
-                                            ))
-                                  ],
-                                ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("Don’t have account?",
+                                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                                          fontWeight: FontWeight.w600, fontSize: 16, color: const Color(0xff9CA3AF))),
+                                  Text(" Sign Up",
+                                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16,
+                                            color: HexColor(AppTheme.primaryColorString!),
+                                          ))
+                                ],
                               ),
                             ),
                           ],

@@ -12,15 +12,13 @@ class MyApp extends GetWidget<AppController> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: Obx(
-        () => GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          useInheritedMediaQuery: true,
-          initialRoute: _getRoute(),
-          getPages: AppPages.pages,
-          defaultTransition: Transition.fadeIn,
-          builder: EasyLoading.init(),
-        ),
+      child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        useInheritedMediaQuery: true,
+        initialRoute: AppRoutes.SPLASH,
+        getPages: AppPages.pages,
+        defaultTransition: Transition.fadeIn,
+        builder: EasyLoading.init(),
       ),
       onTap: () {
         FocusManager.instance.primaryFocus?.unfocus();

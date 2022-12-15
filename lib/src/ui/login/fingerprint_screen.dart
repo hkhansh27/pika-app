@@ -4,17 +4,14 @@ import 'package:get/get.dart';
 import 'package:pika/src/res/textstyle.dart';
 import 'package:pika/src/ui/tab_screen.dart';
 
-class FingerPrintScreen extends StatefulWidget {
+import '../../res/images.dart';
+import 'controllers/login_controller.dart';
+
+class FingerPrintScreen extends GetView<LoginController> {
   const FingerPrintScreen({Key? key}) : super(key: key);
 
   @override
-  State<FingerPrintScreen> createState() => _FingerPrintScreenState();
-}
-
-class _FingerPrintScreenState extends State<FingerPrintScreen> {
-  @override
   Widget build(BuildContext context) {
-    var DefaultImages;
     return Scaffold(
       body: Container(
         color: AppTheme.isLightTheme == false ? const Color(0xff15141F) : const Color(0xffFFFFFF),
@@ -94,13 +91,7 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
                     highlightColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     splashColor: Colors.transparent,
-                    onTap: () {
-                      Get.to(
-                        TabScreen(),
-                        transition: Transition.rightToLeft,
-                        duration: const Duration(milliseconds: 500),
-                      );
-                    },
+                    onTap: controller.handleNextRoute,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 20.0),
                       child: Container(

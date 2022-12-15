@@ -87,7 +87,7 @@ class OtpScreen extends GetView<OtpController> {
                           height: 4,
                         ),
                         Text(
-                          controller.phone,
+                          controller.args['phone'],
                           style: Theme.of(context).textTheme.bodyText2!.copyWith(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 16,

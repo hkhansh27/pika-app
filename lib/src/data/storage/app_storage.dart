@@ -5,6 +5,7 @@ class AppStorage {
   late GetStorage box;
   static const USER_TOKEN = "user_token";
   static const APP_USER_INFO = "app_user_info";
+  static const FINGER_AUTH = "finger";
 
   init() async {
     await GetStorage.init();
@@ -12,7 +13,16 @@ class AppStorage {
   }
 
   Future<bool> isAuthenticated() async {
-    return box.hasData(USER_TOKEN);
+    if (await getUserInfo() != null) return true;
+    return false;
+  }
+
+  Future<void> authenticateFinger(bool isAuthenticate) async {
+    await box.write(FINGER_AUTH, isAuthenticate);
+  }
+
+  Future<bool> isFingerAuthenticated() async {
+    return box.read(FINGER_AUTH) ?? false;
   }
 
   Future<void> saveUserToken(String token) async {

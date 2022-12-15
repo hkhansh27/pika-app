@@ -11,11 +11,37 @@ class UserRepository {
   final storage = Get.find<AppStorage>();
 
   Future<bool> login(String username, String password) async {
-    var token = await _userService.login(username, password);
-    if (token != null) {
-      await storage.saveUserToken(token);
-    }
-    return token != null;
+    var response = await _userService.login(username, password);
+    if (response == null) return false;
+
+    //map data to user model
+    UserModel userModel = UserModel();
+    userModel.id = response.account!.id;
+    userModel.accountNo = response.account!.accountNo;
+    userModel.username = response.account!.username;
+    userModel.password = password;
+    userModel.email = response.account!.email;
+    userModel.fullName = response.account!.fullName;
+    userModel.idCard = response.account!.identityNumber;
+    userModel.phone = response.account!.phone;
+    userModel.token = response.accessToken;
+
+    //store user info to local storage
+    await storage.saveUserInfo(userModel);
+    return true;
+  }
+
+  Future<void> toggleFingerAuthen() async {
+    var isFingerAuthen = await storage.isFingerAuthenticated();
+    await storage.authenticateFinger(!isFingerAuthen);
+  }
+
+  Future<bool> isFingerAuthenticated() async {
+    return await storage.isFingerAuthenticated();
+  }
+
+  Future<bool> isAuthenticated() async {
+    return await storage.isAuthenticated();
   }
 
   Future<UserModel?> getUserInfo() async {
@@ -40,17 +66,24 @@ class UserRepository {
   Future<void> register(String username, String password, String email) async {
     try {
       var userInfo = await storage.getUserInfo();
-      // userInfo!.username = username;
-      // userInfo.password = password;
-      // userInfo.email = email;
+      userInfo!.username = username;
+      userInfo.password = password;
+      userInfo.email = email;
+
       //mock data
-      userInfo!.username = 'hkhansh27';
-      userInfo.password = 'Khanh@123';
-      userInfo.email = 'khanh201011@gmail.com';
-      // bool isSuccess = await _userService.register(userInfo);
-      //mock data
-      bool isSuccess = true;
-      if (isSuccess) {
+      // userInfo!.username = 'hkhansh27';
+      // userInfo.password = 'Khanh@123';
+      // userInfo.email = 'khanh201011@gmail.com';
+
+      var user = await _userService.register(userInfo);
+
+      if (user != null) {
+        //map register response to user info
+        userInfo.id = user.account!.id;
+        userInfo.accountNo = user.account!.accountNo;
+        userInfo.token = user.token;
+
+        //store user info to local storage
         await storage.saveUserInfo(userInfo);
       } else {
         throw Exception('Register failed');
@@ -78,4 +111,10 @@ class UserRepository {
       rethrow;
     }
   }
+
+  Future<void> logout() async {
+    await storage.eraseData();
+  }
+
+  void setAllowFingerprint(bool value) {}
 }

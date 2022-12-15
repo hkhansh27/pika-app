@@ -1,12 +1,12 @@
 import 'package:pika/src/data/api/models/response/auth/register_response.dart';
-import 'package:pika/src/data/api/models/response/login_response.dart';
+import 'package:pika/src/data/api/models/response/auth/login_response.dart';
 import 'package:pika/src/data/api/models/user_model.dart';
 
 import '../api_client.dart';
 import '../api_constants.dart';
 
 class UserService {
-  Future<String?> login(String username, String password) async {
+  Future<LoginRespone?> login(String username, String password) async {
     final response = await ApiClient.getDio().post(
       ApiConstants.LOGIN,
       data: {
@@ -15,13 +15,12 @@ class UserService {
       },
     );
     if (response.statusCode == 200) {
-      final loginResponse = LoginResponse.fromJson(response.data);
-      return loginResponse.accessToken;
+      return LoginRespone.fromJson(response.data);
     }
     return null;
   }
 
-  Future<bool> register(UserModel user) async {
+  Future<RegisterRespone> register(UserModel user) async {
     try {
       final response = await ApiClient.getDio().post(ApiConstants.REGISTER, data: {
         "username": user.username,
@@ -29,12 +28,11 @@ class UserService {
         "email": user.email,
         "identityNumber": user.idCard,
         "phone": user.phone,
-        "password": user.password,
-        "role": 0,
+        "password": user.password
       });
 
-      if (response.statusCode == 200) return true;
-      return false;
+      if (response.statusCode == 200) return RegisterRespone.fromJson(response.data);
+      throw Exception('Register failed');
     } catch (e) {
       rethrow;
     }
@@ -49,13 +47,10 @@ class UserService {
       });
 
       if (response.statusCode == 200) {
-        if (response.data == 'true') {
-          return true;
-        } else {
-          throw Exception('Change password failed');
-        }
+        return true;
+      } else {
+        throw Exception('Change password failed');
       }
-      return false;
     } catch (e) {
       rethrow;
     }

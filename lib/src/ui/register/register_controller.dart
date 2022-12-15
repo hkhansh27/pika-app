@@ -98,6 +98,7 @@ class RegisterController extends GetxController {
         e.toString(),
         snackPosition: SnackPosition.BOTTOM,
       );
+      EasyLoading.dismiss();
     }
   }
 
@@ -105,7 +106,10 @@ class RegisterController extends GetxController {
     Get.to(
       () => OtpScreen(),
       binding: OtpBinding(),
-      arguments: mobileController.value.text,
+      arguments: {
+        "phone": mobileController.value.text,
+        "nextRoute": "FingerprintScreen",
+      },
       transition: Transition.rightToLeft,
       duration: const Duration(milliseconds: 500),
     );

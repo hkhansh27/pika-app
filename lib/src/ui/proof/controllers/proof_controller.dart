@@ -180,7 +180,10 @@ class ProofController extends GetxController {
   void goToOtpScreen() {
     Get.toNamed(
       AppRoutes.OTP,
-      arguments: mobileController.value.text,
+      arguments: {
+        "phone": mobileController.value.text,
+        "nextRoute": AppRoutes.EKYC,
+      },
     );
   }
 

@@ -4,6 +4,8 @@ import 'package:pika/src/res/textstyle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pika/src/ui/login/fingerprint_screen.dart';
+import 'package:pika/src/ui/otp/otp_screen.dart';
 import 'package:pika/src/ui/profile/notification_screen.dart';
 import 'package:pika/src/ui/profile/controllers/profile_controller.dart';
 import 'package:pika/src/ui/profile/widget/custom_row.dart';
@@ -11,26 +13,20 @@ import 'package:pika/src/ui/profile/widget/notification_view.dart';
 import 'package:pika/src/ui/profile/widget/social_view.dart';
 import 'package:pika/src/ui/splash/splash.dart';
 
-class SettingScreen extends StatefulWidget {
-  const SettingScreen({Key? key}) : super(key: key);
+import '../../routes/app_pages.dart';
 
-  @override
-  State<SettingScreen> createState() => _SettingScreenState();
-}
-
-class _SettingScreenState extends State<SettingScreen> {
-  final profileController = Get.put(ProfileController());
-  @override
-  void initState() {
-    setState(() {
-      if (AppTheme.isLightTheme == false) {
-        profileController.darkMode.value = true;
-      } else {
-        profileController.darkMode.value = false;
-      }
-    });
-    super.initState();
-  }
+class SettingScreen extends GetView<ProfileController> {
+  // @override
+  // void initState() {
+  //   setState(() {
+  //     if (AppTheme.isLightTheme == false) {
+  //       profileController.darkMode.value = true;
+  //     } else {
+  //       profileController.darkMode.value = false;
+  //     }
+  //   });
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +47,9 @@ class _SettingScreenState extends State<SettingScreen> {
         elevation: 0,
         leading: InkWell(
           onTap: () {
-            Navigator.pop(context);
+            Get.back();
+            Get.back();
+            Get.back();
           },
           child: Icon(
             Icons.arrow_back,
@@ -90,17 +88,17 @@ class _SettingScreenState extends State<SettingScreen> {
                   context,
                   "Dark Mode",
                   CupertinoSwitch(
-                    value: profileController.darkMode.value,
+                    value: controller.darkMode.value,
                     activeColor: HexColor(AppTheme.primaryColorString!),
                     onChanged: (v) {
-                      setState(() {
-                        profileController.darkMode.value = v;
-                        if (v == true) {
-                          changeColor(dark);
-                        } else {
-                          changeColor(light);
-                        }
-                      });
+                      // setState(() {
+                      //   profileController.darkMode.value = v;
+                      //   if (v == true) {
+                      //     changeColor(dark);
+                      //   } else {
+                      //     changeColor(light);
+                      //   }
+                      // });
                     },
                   ),
                 ),
@@ -108,6 +106,21 @@ class _SettingScreenState extends State<SettingScreen> {
                 customRow(
                   context,
                   "Reset Password",
+                ),
+                const SizedBox(height: 32),
+                //finger print switch button
+                notificationView(
+                  context,
+                  "Allow Touch ID",
+                  Obx(
+                    () => CupertinoSwitch(
+                      value: controller.allowFingerprint.value,
+                      activeColor: HexColor(AppTheme.primaryColorString!),
+                      onChanged: (v) {
+                        controller.handleAllowFingerprint(v);
+                      },
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 32),
                 InkWell(
@@ -140,9 +153,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 const SizedBox(height: 32),
                 InkWell(
-                  onTap: () {
-                    Get.offAll(SplashScreen());
-                  },
+                  onTap: controller.logout,
                   child: customRow(
                     context,
                     "Log out",

@@ -7,4 +7,6 @@ abstract class AppRoutes {
   static const REGISTER = '/register';
   static const OTP = '/otp';
   static const EKYC = '/ekyc';
+  static const FINGERPRINT = '/fingerprint';
+  static const SETTING = '/SettingScreen';
 }

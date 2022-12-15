@@ -11,21 +11,22 @@ class UserModel {
   String? birthDay;
   String? city;
   String? issueDate;
+  String? token;
 
-  UserModel({
-    this.id,
-    this.idCard,
-    this.username,
-    this.email,
-    this.fullName,
-    this.phone,
-    this.accountNo,
-    this.password,
-    this.address,
-    this.birthDay,
-    this.city,
-    this.issueDate,
-  });
+  UserModel(
+      {this.id,
+      this.idCard,
+      this.username,
+      this.email,
+      this.fullName,
+      this.phone,
+      this.accountNo,
+      this.password,
+      this.address,
+      this.birthDay,
+      this.city,
+      this.issueDate,
+      this.token});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     id = json['id']?.toString();
@@ -40,6 +41,7 @@ class UserModel {
     birthDay = json['birthDay']?.toString();
     city = json['city']?.toString();
     issueDate = json['issueDate']?.toString();
+    token = json['token']?.toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -56,7 +58,7 @@ class UserModel {
     data['birthDay'] = this.birthDay;
     data['city'] = this.city;
     data['issueDate'] = this.issueDate;
-
+    data['token'] = this.token;
     return data;
   }
 }
