@@ -18,4 +18,8 @@ class ApiConstants {
   static const EKYC_ADDFILE = "/file-service/v1/addFile";
   static const EKYC_GETINFO = "/ai/v1/ocr/id";
   static const EKYC_COMPARE = "/ai/v1/face/compare";
+
+  //otp
+  static const OTP_SEND = "/Verify/send";
+  static const OTP_VERIFY = "/Verify/verify";
 }

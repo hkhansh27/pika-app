@@ -3,6 +3,7 @@ import 'package:pika/src/data/api/api_client.dart';
 import 'package:pika/src/data/api/api_constants.dart';
 import 'package:pika/src/data/api/ekyc_api_client.dart';
 import 'package:pika/src/data/api/services/ekyc_service.dart';
+import 'package:pika/src/data/api/services/otp_service.dart';
 import 'package:pika/src/data/repositories/ekyc_repository.dart';
 
 import '../data/api/models/user_model.dart';
@@ -46,6 +47,7 @@ class AppController extends GetxController {
     // services
     Get.put(UserService());
     Get.put(EkycService());
+    Get.put(OtpService());
 
     // repositories
     Get.put(UserRepository());
