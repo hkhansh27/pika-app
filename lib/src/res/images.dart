@@ -1,4 +1,15 @@
 class DefaultImages {
+  static const String contacts = 'assets/images/contacts.svg';
+  static const String threeDots = 'assets/images/three_dots.svg';
+  static const String walletSave = 'assets/images/wallet_save.svg';
+  static const String bell = 'assets/images/bell.svg';
+  static const String electricity = 'assets/images/electric.svg';
+  static const String water = 'assets/images/water.svg';
+  static const String internet = 'assets/images/modem.svg';
+  static const String school = 'assets/images/school.svg';
+  static const String logoHutech = 'assets/images/logo_hutech.png';
+  static const String rightArrow = 'assets/images/right-arrow.svg';
+  static const String leftArrow = 'assets/images/left-arrow.svg';
   static const String homr = 'assets/images/home.svg';
   static const String card = 'assets/images/card.svg';
   static const String chart = 'assets/images/chart.svg';
@@ -13,6 +24,7 @@ class DefaultImages {
   static const String creditcard = 'assets/images/creditcard.svg';
   static const String debitcard = 'assets/images/debitcard.svg';
   static const String mastercard = 'assets/images/mastercard.svg';
+  static const String hdBank = 'assets/images/LogoHDBank.svg';
   static const String ranking = 'assets/images/ranking.svg';
   static const String scan = 'assets/images/Scan.svg';
   static const String sucess = 'assets/images/sucess.svg';

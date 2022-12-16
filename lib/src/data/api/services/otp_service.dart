@@ -32,10 +32,8 @@ class OtpService {
       final response = await ApiClient.getDio().post(
         ApiConstants.OTP_VERIFY,
         data: {
-          {
-            "phone": phone,
-            "code": code,
-          }
+          "phone": phone,
+          "code": code,
         },
       );
 

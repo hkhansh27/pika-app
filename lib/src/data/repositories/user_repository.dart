@@ -1,8 +1,13 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:pika/src/data/api/models/response/notification_response.dart';
 import 'package:pika/src/data/api/models/user_model.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 
+import '../api/api_client.dart';
+import '../api/models/response/check_contact_response.dart';
 import '../api/services/user_service.dart';
 import '../storage/app_storage.dart';
 
@@ -11,7 +16,8 @@ class UserRepository {
   final storage = Get.find<AppStorage>();
 
   Future<bool> login(String username, String password) async {
-    var response = await _userService.login(username, password);
+    var fcmToken = await storage.getFcmToken();
+    var response = await _userService.login(username, password, fcmToken);
     if (response == null) return false;
 
     //map data to user model
@@ -24,10 +30,18 @@ class UserRepository {
     userModel.fullName = response.account!.fullName;
     userModel.idCard = response.account!.identityNumber;
     userModel.phone = response.account!.phone;
-    userModel.token = response.accessToken;
+    userModel.token = response.token;
+
+    // await FirebaseChatCore.instance.createUserInFirestore(
+    //   types.User(
+    //     id: userModel.id!,
+    //     firstName: userModel.fullName,
+    //   ),
+    // );
 
     //store user info to local storage
     await storage.saveUserInfo(userModel);
+    ApiClient.instance.setToken(response.token!);
     return true;
   }
 
@@ -83,8 +97,16 @@ class UserRepository {
         userInfo.accountNo = user.account!.accountNo;
         userInfo.token = user.token;
 
+        await FirebaseChatCore.instance.createUserInFirestore(
+          types.User(
+            id: userInfo.id!,
+            firstName: userInfo.fullName,
+          ),
+        );
+
         //store user info to local storage
         await storage.saveUserInfo(userInfo);
+        ApiClient.instance.setToken(userInfo.token!);
       } else {
         throw Exception('Register failed');
       }
@@ -117,4 +139,55 @@ class UserRepository {
   }
 
   void setAllowFingerprint(bool value) {}
+
+  Future<String> getBalance() async {
+    var balance = await _userService.getBalance();
+    return balance;
+  }
+
+  Future<String?> getNameByAccountNo(String accountNo) async {
+    var name = await _userService.getNameByAccountNo(accountNo);
+    return name;
+  }
+
+  Future<List<NotificationRespone>> getNotifications() async {
+    try {
+      var notifications = await _userService.getNotifications();
+      return notifications;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<String> getPassbookBalance() async {
+    var balance = await _userService.getPassbookBalance();
+    return balance;
+  }
+
+  Future<bool> withdraw(String amount) async {
+    try {
+      var isSuccess = await _userService.withdraw(amount);
+      return isSuccess;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<bool> deposit(String amount) async {
+    try {
+      var isSuccess = await _userService.deposit(amount);
+      return isSuccess;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<CheckContactResponse>> checkContact(List<String?> phones) async {
+    try {
+      var contacts = await _userService.checkContact(phones);
+      return contacts;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

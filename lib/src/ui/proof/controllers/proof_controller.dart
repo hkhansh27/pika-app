@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:pika/src/data/api/models/user_model.dart';
 import 'package:pika/src/data/repositories/ekyc_repository.dart';
@@ -77,39 +78,43 @@ class ProofController extends GetxController {
     }
 
     try {
-      // var file = await cam.takePicture();
+      var file = await cam.takePicture();
 
-      // if (file.path.isNotEmpty) {
-      //   var data = await _ekycRepo.uploadFile(file, file.name, currentStage);
-      //   if (data == null) {
-      //     Get.snackbar(
-      //       'Error',
-      //       'Upload file failed',
-      //       snackPosition: SnackPosition.BOTTOM,
-      //     );
-      //     return;
-      //   }
-      if (currentStage == 'front') {
-        Get.to(
-          UploadBackPhotoScreen(),
-          transition: Transition.rightToLeft,
-          duration: const Duration(milliseconds: 500),
-        );
-      }
-      if (currentStage == 'back') {
-        Get.to(
-          UploadIdScreen(),
-          transition: Transition.rightToLeft,
-          duration: const Duration(milliseconds: 500),
-        );
-      }
-      if (currentStage == 'selfie') {
-        await testInfo();
-        Get.off(
-          CheckInfoPage(),
-          transition: Transition.rightToLeft,
-          duration: const Duration(milliseconds: 500),
-        );
+      if (file.path.isNotEmpty) {
+        EasyLoading.show(status: 'Uploading...');
+        var data = await _ekycRepo.uploadFile(file, file.name, currentStage);
+        EasyLoading.dismiss();
+
+        if (data == null) {
+          Get.snackbar(
+            'Error',
+            'Upload file failed',
+            snackPosition: SnackPosition.BOTTOM,
+          );
+          return;
+        }
+        if (currentStage == 'front') {
+          Get.to(
+            UploadBackPhotoScreen(),
+            transition: Transition.rightToLeft,
+            duration: const Duration(milliseconds: 500),
+          );
+        }
+        if (currentStage == 'back') {
+          Get.to(
+            UploadIdScreen(),
+            transition: Transition.rightToLeft,
+            duration: const Duration(milliseconds: 500),
+          );
+        }
+        if (currentStage == 'selfie') {
+          await testInfo();
+          Get.off(
+            CheckInfoPage(),
+            transition: Transition.rightToLeft,
+            duration: const Duration(milliseconds: 500),
+          );
+        }
       }
     } catch (e) {
       print(e);
@@ -117,32 +122,34 @@ class ProofController extends GetxController {
   }
 
   Future<void> testInfo() async {
-    // var info = await _ekycRepo.getInfo();
-    // var compare = await _ekycRepo.compareFace();
+    EasyLoading.show(status: 'Processing...');
+    var info = await _ekycRepo.getInfoEkyc();
+    var compare = await _ekycRepo.compareFace();
 
 //with ekyc api
-    // userModel.value = UserModel(
-    //   idCard: info!.object!.id,
-    //   fullName: info.object!.name,
-    //   address: info.object!.originLocation,
-    //   birthDay: info.object!.birthDay,
-    //   city: info.object!.issuePlace,
-    //   issueDate: info.object!.issueDate,
-    // );
+    await _userRepo.updateUserInfo(userModel.value = UserModel(
+      idCard: info!.object!.id,
+      fullName: info.object!.name,
+      address: info.object!.originLocation,
+      birthDay: info.object!.birthDay,
+      city: info.object!.issuePlace,
+      issueDate: info.object!.issueDate,
+    ));
 
     //with mock data
-    await _userRepo.updateUserInfo(
-      UserModel(
-        idCard: '1234567899',
-        fullName: 'Huynh Huu Khanh',
-        address: 'Cho Gao, Tien Giang',
-        birthDay: '02/07/2001',
-        city: 'Tien Giang',
-        issueDate: '30/05/2016',
-      ),
-    );
+    // await _userRepo.updateUserInfo(
+    //   UserModel(
+    //     idCard: '1234567899',
+    //     fullName: 'Huynh Huu Khanh',
+    //     address: 'Cho Gao, Tien Giang',
+    //     birthDay: '02/07/2001',
+    //     city: 'Tien Giang',
+    //     issueDate: '30/05/2016',
+    //   ),
+    // );
 
     userModel.value = await _userRepo.getUserInfo();
+    EasyLoading.dismiss();
   }
 
   void uploadFile(XFile file, String title, String desc) async {

@@ -6,6 +6,7 @@ class AppStorage {
   static const USER_TOKEN = "user_token";
   static const APP_USER_INFO = "app_user_info";
   static const FINGER_AUTH = "finger";
+  static const FCM_TOKEN = "fcm_token";
 
   init() async {
     await GetStorage.init();
@@ -23,6 +24,14 @@ class AppStorage {
 
   Future<bool> isFingerAuthenticated() async {
     return box.read(FINGER_AUTH) ?? false;
+  }
+
+  Future<void> saveFcmToken(String? token) async {
+    await box.write(FCM_TOKEN, token);
+  }
+
+  Future<String?> getFcmToken() async {
+    return box.read(FCM_TOKEN);
   }
 
   Future<void> saveUserToken(String token) async {

@@ -1,180 +1,167 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:pika/src/res/images.dart';
-import 'package:pika/src/res/textstyle.dart';
-import 'package:pika/src/ui/home/widgets/amount_container.dart';
+import 'package:pika/src/ui/home/home.dart';
 import 'package:swipe/swipe.dart';
 
+import '../../res/images.dart';
+import '../../res/textstyle.dart';
+import '../../widgets/custom_textformfield.dart';
+import 'controllers/passbook_controller.dart';
 import 'widgets/topup_dialog.dart';
 
-class TopUpSCreen extends StatefulWidget {
-  const TopUpSCreen({Key? key}) : super(key: key);
+class TopUpSCreen extends GetView<PassbookController> {
+  TopUpSCreen({Key? key, required this.action}) : super(key: key);
+  String action;
 
-  @override
-  State<TopUpSCreen> createState() => _TopUpSCreenState();
-}
-
-class _TopUpSCreenState extends State<TopUpSCreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.isLightTheme == false ? HexColor('#15141f') : HexColor(AppTheme.primaryColorString!),
+      backgroundColor: AppTheme.isLightTheme == false ? HexColor('#15141f') : HexColor(AppTheme.secondaryColorString!),
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
-                child: Row(
-                  children: [
-                    InkWell(
-                      focusColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const Expanded(child: SizedBox()),
-                    Text(
-                      "Top Up",
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w800,
-                          ),
-                    ),
-                    const Expanded(child: SizedBox()),
-                    const Icon(
-                      Icons.arrow_back,
-                      color: Colors.transparent,
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 30),
-                child: Container(
-                  height: Get.height - 107,
-                  width: Get.width,
-                  decoration: BoxDecoration(
-                    color: AppTheme.isLightTheme == false
-                        ? const Color(0xff211F32)
-                        : Theme.of(context).appBarTheme.backgroundColor,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(24),
-                      topRight: Radius.circular(24),
-                    ),
-                  ),
-                  child: ListView(
-                    physics: const ClampingScrollPhysics(),
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
+                  child: Row(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 50),
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 30),
-                            Container(
-                              height: 80,
-                              width: 80,
-                              decoration: BoxDecoration(
-                                color: const Color(0xffF5F7FE),
-                                borderRadius: BorderRadius.circular(24),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(18.0),
-                                child: SvgPicture.asset(
-                                  DefaultImages.unicorn,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              "Finpay Card",
-                              style: Theme.of(context).textTheme.headline6!.copyWith(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              "••••   ••••   ••••   5318",
-                              style: Theme.of(context).textTheme.caption!.copyWith(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    color: const Color(0xffA2A0A8),
-                                  ),
-                            ),
-                            const SizedBox(height: 40),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20, right: 20),
-                              child: amountContainer(context, "500"),
-                            ),
-                            const SizedBox(height: 24),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20, right: 20),
-                              child: Container(
-                                height: 64,
-                                width: Get.width,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(24),
-                                  color: AppTheme.isLightTheme == false ? const Color(0xff323045) : Colors.transparent,
-                                  border: Border.all(
-                                    color: HexColor(AppTheme.primaryColorString!).withOpacity(0.05),
-                                    width: 2,
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 16, right: 16),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      SvgPicture.asset(
-                                        DefaultImages.mastercard,
-                                      ),
-                                      const SizedBox(width: 15),
-                                      Text(
-                                        "Debit",
-                                        style: Theme.of(context).textTheme.caption!.copyWith(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                      ),
-                                      const Expanded(child: SizedBox()),
-                                      Text(
-                                        "\$7,124",
-                                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w800,
-                                            ),
-                                      ),
-                                      const SizedBox(width: 10),
-                                      const Icon(
-                                        Icons.keyboard_arrow_down_outlined,
-                                        color: Color(0xffA2A0A8),
-                                        size: 30,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
+                      InkWell(
+                        focusColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
                         ),
                       ),
-                      const SizedBox(height: 50),
+                      const Expanded(child: SizedBox()),
+                      Text(
+                        "Top Up",
+                        style: Theme.of(context).textTheme.headline6!.copyWith(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w800,
+                            ),
+                      ),
+                      const Expanded(child: SizedBox()),
+                      const Icon(
+                        Icons.arrow_back,
+                        color: Colors.transparent,
+                      ),
                     ],
                   ),
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: Container(
+                    height: Get.height - 107,
+                    width: Get.width,
+                    decoration: BoxDecoration(
+                      color: AppTheme.isLightTheme == false
+                          ? const Color(0xff211F32)
+                          : Theme.of(context).appBarTheme.backgroundColor,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(24),
+                        topRight: Radius.circular(24),
+                      ),
+                    ),
+                    child: ListView(
+                      physics: const ClampingScrollPhysics(),
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 50),
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 30),
+                              Container(
+                                height: 80,
+                                width: 80,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xffF5F7FE),
+                                  borderRadius: BorderRadius.circular(24),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(18.0),
+                                  child: SvgPicture.asset(
+                                    DefaultImages.unicorn,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              Obx(
+                                () => Text(
+                                  controller.userModel.value?.fullName ?? "Error",
+                                  style: Theme.of(context).textTheme.headline6!.copyWith(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w800,
+                                      ),
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                controller.userModel.value?.accountNo ?? "Error",
+                                style: Theme.of(context).textTheme.caption!.copyWith(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: const Color(0xffA2A0A8),
+                                    ),
+                              ),
+                              const SizedBox(height: 40),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 20, right: 20),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(
+                                      color: Theme.of(context).textTheme.headline6!.color!.withOpacity(0.3),
+                                    ),
+                                  ),
+                                  child: CustomTextFormField(
+                                    sufix: InkWell(
+                                      focusColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      splashColor: Colors.transparent,
+                                      onTap: () {},
+                                      child: const Icon(
+                                        Icons.arrow_drop_down,
+                                        color: Colors.transparent,
+                                      ),
+                                    ),
+                                    prefix: Padding(
+                                      padding: const EdgeInsets.all(14.0),
+                                      child: SvgPicture.asset(DefaultImages.creditcard,
+                                          color: HexColor(AppTheme.primaryColorString!)),
+                                    ),
+                                    hintText: "Amount",
+                                    backgroundColor: Colors.transparent,
+                                    textEditingController: controller.amountController.value,
+                                    capitalization: TextCapitalization.none,
+                                    limit: [
+                                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                                    ],
+                                    inputType: TextInputType.visiblePassword,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 50),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
           Padding(
             padding: EdgeInsets.only(
@@ -183,7 +170,13 @@ class _TopUpSCreenState extends State<TopUpSCreen> {
             child: Swipe(
               onSwipeRight: () {
                 Get.bottomSheet(
-                  topupDialog(context),
+                  topupDialog(
+                    context,
+                    controller.userModel.value!.fullName!,
+                    controller.userModel.value!.accountNo!,
+                    controller.amountController.value.text,
+                    action,
+                  ),
                 );
               },
               child: Padding(
@@ -222,7 +215,7 @@ class _TopUpSCreenState extends State<TopUpSCreen> {
                       ),
                       const Expanded(child: SizedBox()),
                       Text(
-                        "Swipe to top-up",
+                        action == 'deposit' ? "Swipe to top-up" : "Swipe to withdraw",
                         style: Theme.of(context).textTheme.bodyText1!.copyWith(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,

@@ -18,6 +18,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputType? inputType;
   final bool? readOnly;
   final Function(String)? onChangedFunc;
+  final Color? backgroundColor;
 
   const CustomTextFormField({
     Key? key,
@@ -35,6 +36,7 @@ class CustomTextFormField extends StatelessWidget {
     this.inputType,
     this.readOnly = false,
     this.focusNode,
+    this.backgroundColor,
   }) : super(key: key);
 
   @override
@@ -45,7 +47,11 @@ class CustomTextFormField extends StatelessWidget {
         Container(
           height: 57,
           decoration: BoxDecoration(
-              color: AppTheme.isLightTheme == false ? const Color(0xff211F32) : const Color(0xffF9F9FA),
+              color: backgroundColor != null
+                  ? backgroundColor
+                  : AppTheme.isLightTheme == false
+                      ? const Color(0xff211F32)
+                      : const Color(0xffF9F9FA),
               borderRadius: BorderRadius.circular(16)),
           child: Padding(
             padding: const EdgeInsets.only(top: 5.0),

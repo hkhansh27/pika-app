@@ -10,6 +10,12 @@ class TransactionModel {
 
   final String? time;
 
-  TransactionModel(this.background, this.image, this.title, this.subTitle,
-      this.price, this.time);
+  TransactionModel(
+    this.background,
+    this.image,
+    this.title,
+    this.subTitle,
+    this.price,
+    this.time,
+  );
 }

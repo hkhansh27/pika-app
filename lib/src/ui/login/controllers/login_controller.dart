@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth_android/local_auth_android.dart';
@@ -34,7 +35,7 @@ class LoginController extends GetxController {
 
       if (isBiometricSupported) {
         isAuthenticated = await _localAuthentication.authenticate(
-          localizedReason: 'Authenticate to access the app con cho',
+          localizedReason: 'Authenticate to access Pika',
           authMessages: const <AuthMessages>[
             AndroidAuthMessages(
               biometricNotRecognized: 'Biometric not recognized',
@@ -118,6 +119,7 @@ class LoginController extends GetxController {
   Future<void> login() async {
     final username = usernameController.value.text;
     final password = passwordController.value.text;
+    EasyLoading.show(status: 'Logging ...');
     final isLoginSuccess = await _userRepo.login(username, password);
     if (isLoginSuccess) {
       Get.offAllNamed(AppRoutes.HOME);
@@ -128,5 +130,6 @@ class LoginController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
       );
     }
+    EasyLoading.dismiss();
   }
 }

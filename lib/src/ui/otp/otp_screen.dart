@@ -101,6 +101,7 @@ class OtpScreen extends GetView<OtpController> {
                           onCompleted: (value) {
                             controller.verifyOtp(value);
                           },
+                          androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsRetrieverApi,
                         ),
                         const SizedBox(
                           height: 32,

@@ -79,10 +79,8 @@ class OtpController extends GetxController {
   }
 
   Future<void> next() async {
-    if (args['nextRoute'] == AppRoutes.EKYC) {
-      Get.offAllNamed(AppRoutes.EKYC);
-    } else {
-      Get.toNamed(args['nextRoute']);
-    }
+    var nextRoute = args['nextRoute'];
+    var data = args['data'];
+    Get.offAndToNamed(nextRoute, arguments: data);
   }
 }

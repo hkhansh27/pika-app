@@ -21,8 +21,13 @@ class EkycService {
     );
 
     if (response.statusCode == 200) {
-      return EkycAddfileResponse.fromJson(response.data);
+      print("Upload file successsuccesssuccesssuccesssuccesssuccesssuccess: ${response.data}");
+      var kaka = EkycAddfileResponse.fromJson(response.data);
+      print("Upload file successsuccesssuccesssuccesssuccesssuccesssuccess: ${kaka.toJson()}");
+      return kaka;
     }
+    print(
+        "Upload file  faileeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee: ${response.data}");
 
     return null;
   }
@@ -43,8 +48,12 @@ class EkycService {
     );
 
     if (response.statusCode == 200) {
-      return GetIDInfoResponse.fromJson(response.data);
+      print("Get info successsuccesssuccesssuccesssuccesssuccesssuccess: ${response.data}");
+      var kaka = GetIDInfoResponse.fromJson(response.data);
+      print("Get info successsuccesssuccesssuccesssuccesssuccesssuccess: ${kaka.toJson()}");
+      return kaka;
     }
+    print("Get info  faileeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee: ${response.data}");
 
     return null;
   }
@@ -62,8 +71,13 @@ class EkycService {
     );
 
     if (response.statusCode == 200) {
-      return FaceCompareResponse.fromJson(response.data);
+      print("Comare face successsuccesssuccesssuccesssuccesssuccesssuccess: ${response.data}");
+      var kaka = FaceCompareResponse.fromJson(response.data);
+      print("Comare face successsuccesssuccesssuccesssuccesssuccesssuccess: ${kaka.toJson()}");
+      return kaka;
     }
+    print(
+        "Comare face faileeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee: ${response.data}");
 
     return null;
   }

@@ -9,4 +9,7 @@ abstract class AppRoutes {
   static const EKYC = '/ekyc';
   static const FINGERPRINT = '/fingerprint';
   static const SETTING = '/SettingScreen';
+  static const CHAT = "/chat";
+  static const TRANSFER_SUCCESS = "/transfer_success";
+  static const TOPUP_SUCCESS = "/topup_success";
 }

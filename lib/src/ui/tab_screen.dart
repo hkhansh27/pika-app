@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:pika/src/controllers/tab_controller.dart';
 import 'package:pika/src/res/images.dart';
 import 'package:pika/src/res/textstyle.dart';
-import 'package:pika/src/ui/card/card_view.dart';
+import 'package:pika/src/ui/notifications/notifications_screen.dart';
 import 'package:pika/src/ui/home/home.dart';
 import 'package:pika/src/ui/home/home_screen.dart';
 import 'package:pika/src/ui/statistics/statistics_view.dart';
 
 import 'profile/profile_view.dart';
+import 'profile/setting_screen.dart';
+import 'qr/qr_scan_screen.dart';
 
 class TabScreen extends GetView<TabScreenController> {
   final controller = Get.put(TabScreenController());
@@ -21,8 +24,13 @@ class TabScreen extends GetView<TabScreenController> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: HexColor(AppTheme.primaryColorString!),
         onPressed: () {},
-        child: SvgPicture.asset(
-          DefaultImages.scan,
+        child: InkWell(
+          child: SvgPicture.asset(
+            DefaultImages.scan,
+          ),
+          onTap: () {
+            Get.to(() => QrScanScreen());
+          },
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -84,7 +92,7 @@ class TabScreen extends GetView<TabScreenController> {
                             : HexColor(AppTheme.primaryColorString!).withOpacity(0.4),
                   ),
                 ),
-                label: "Card"),
+                label: "Notifications"),
             BottomNavigationBarItem(
                 icon: SizedBox(
                   height: 20,
@@ -273,10 +281,10 @@ class TabScreen extends GetView<TabScreenController> {
         builder: (controller) => controller.pageIndex.value == 0
             ? HomeScreen()
             : controller.pageIndex.value == 1
-                ? const StatisticsView()
+                ? StatisticsView()
                 : controller.pageIndex.value == 2
-                    ? const CardView()
-                    : ProfileScreen(),
+                    ? const NotificationsView()
+                    : SettingScreen(),
       ),
     );
   }

@@ -3,17 +3,23 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pika/src/res/images.dart';
 import 'package:pika/src/res/textstyle.dart';
+import 'package:pika/src/ui/home/controllers/passbook_controller.dart';
 import 'package:pika/src/ui/home/topup_sucess_screen.dart';
 import 'package:pika/src/widgets/custom_container.dart';
 
-Widget topupDialog(BuildContext context) {
+import '../controllers/transaction_controller.dart';
+import '../controllers/transfer_detail_controller.dart';
+
+Widget topupDialog(BuildContext context, String fullName, String accNo, String amount, String action) {
+  final passbookController = Get.find<PassbookController>();
+
   return Padding(
     padding: const EdgeInsets.only(left: 16, right: 16, bottom: 40),
     child: Container(
       height: 332,
       width: Get.width,
       decoration: BoxDecoration(
-        color: AppTheme.isLightTheme == false ? const Color(0xff211F32) : Theme.of(context).appBarTheme.backgroundColor,
+        color: AppTheme.isLightTheme == false ? const Color(0xff211F32) : Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(32),
       ),
       child: Padding(
@@ -98,14 +104,14 @@ Widget topupDialog(BuildContext context) {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Top-up Amount",
+                  action == 'deposit' ? "Top-up Amount" : "Withdraw Amount",
                   style: Theme.of(context)
                       .textTheme
                       .bodyText1!
                       .copyWith(fontSize: 16, fontWeight: FontWeight.w400, color: const Color(0xffA2A0A8)),
                 ),
                 Text(
-                  "\$500.00",
+                  amount,
                   style: Theme.of(context).textTheme.bodyText1!.copyWith(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -129,7 +135,7 @@ Widget topupDialog(BuildContext context) {
                       ),
                 ),
                 Text(
-                  "\$500.00",
+                  amount,
                   style: Theme.of(context).textTheme.headline6!.copyWith(
                         fontSize: 16,
                         fontWeight: FontWeight.w800,
@@ -141,13 +147,7 @@ Widget topupDialog(BuildContext context) {
             CustomButton(
               title: "Continue",
               onTap: () {
-                Navigator.pop(context);
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const TopUpSucessScreen(),
-                  ),
-                );
+                passbookController.goToOtpScreen(action);
               },
             )
           ],

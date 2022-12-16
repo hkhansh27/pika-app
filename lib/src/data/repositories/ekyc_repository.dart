@@ -28,10 +28,10 @@ class EkycRepository {
   }
 
   Future<GetIDInfoResponse?> getInfoEkyc() async {
-    // var data = await _ekycService.getInfo(_imagesHash[0]!, _imagesHash[1]!);
-    var data = await _ekycService.getInfo(
-        "idg20221202-eed5f795-66da-7944-e053-62199f0a3d05/IDG01_ef6c882c-7254-11ed-aaa4-8d6f78836c1d",
-        "idg20221202-eed5f795-66da-7944-e053-62199f0a3d05/IDG01_26b5cc27-7272-11ed-9807-e9e7101545fa");
+    var data = await _ekycService.getInfo(_imagesHash[0]!, _imagesHash[1]!);
+    // var data = await _ekycService.getInfo(
+    //     "idg20221202-eed5f795-66da-7944-e053-62199f0a3d05/IDG01_ef6c882c-7254-11ed-aaa4-8d6f78836c1d",
+    //     "idg20221202-eed5f795-66da-7944-e053-62199f0a3d05/IDG01_26b5cc27-7272-11ed-9807-e9e7101545fa");
 
     return data;
   }

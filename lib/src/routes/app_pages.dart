@@ -5,9 +5,11 @@ import 'package:pika/src/ui/tab_screen.dart';
 
 import '../ui/home/home.dart';
 import '../ui/login/login.dart';
+import '../ui/notifications/notification_binding.dart';
 import '../ui/otp/otp.dart';
 import '../ui/profile/profile_binding.dart';
 import '../ui/register/register.dart';
+import '../ui/chat/chat.dart';
 
 part 'app_routes.dart';
 
@@ -29,6 +31,7 @@ class AppPages {
       bindings: [
         HomeBinding(),
         ProfileBinding(),
+        NotificationsBinding(),
       ],
     ),
     GetPage(
@@ -50,6 +53,16 @@ class AppPages {
       name: AppRoutes.EKYC,
       page: () => VerifyIdentityScreen(),
       binding: ProofBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.TRANSFER_SUCCESS,
+      page: () => TransferSucessScreen(),
+      binding: HomeBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.TOPUP_SUCCESS,
+      page: () => TopUpSucessScreen(),
+      binding: HomeBinding(),
     ),
   ];
 }

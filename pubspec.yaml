@@ -30,6 +30,18 @@ dependencies:
   camera:
   flutter_easyloading: ^3.0.5
   local_auth: ^2.1.2
+  firebase_messaging: ^14.1.4
+  intl:
+  qr_flutter: ^4.0.0
+  mobile_scanner: ^2.1.0
+  permission_handler: ^10.2.0
+  flutter_keyboard_visibility: ^5.4.0
+  flutter_chat_ui: ^1.6.6
+  uuid: ^3.0.7
+  file_picker: ^5.2.4
+  flutter_firebase_chat_core: ^1.6.4
+  open_filex: ^4.3.2
+  contacts_service: ^0.6.3
 
 flutter_gen:
   output: lib/gen/
@@ -51,3 +63,5 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/country_code.json
+    - flags/

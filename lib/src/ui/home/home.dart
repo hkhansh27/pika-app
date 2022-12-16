@@ -5,7 +5,7 @@ export 'top_up_screen.dart';
 export 'topup_sucess_screen.dart';
 export 'controllers/transaction_controller.dart';
 export 'transaction_history_detail_screen.dart';
-export 'transaction_history_screen.dart';
+export 'contact_screen.dart';
 export 'transfer_screen.dart';
 export 'transfer_sucess_screen.dart';
 export 'widgets/amount_container.dart';

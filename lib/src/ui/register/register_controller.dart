@@ -108,7 +108,7 @@ class RegisterController extends GetxController {
       binding: OtpBinding(),
       arguments: {
         "phone": mobileController.value.text,
-        "nextRoute": "FingerprintScreen",
+        "nextRoute": AppRoutes.FINGERPRINT,
       },
       transition: Transition.rightToLeft,
       duration: const Duration(milliseconds: 500),

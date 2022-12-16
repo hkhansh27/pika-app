@@ -1,432 +1,342 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:pika/src/res/images.dart';
 import 'package:pika/src/res/textstyle.dart';
-import 'package:pika/src/ui/home/widgets/amount_container.dart';
-import 'package:pika/src/ui/home/widgets/transfer_dialog.dart';
-import 'package:pika/src/widgets/card_textfield.dart';
 import 'package:pika/src/widgets/custom_container.dart';
-import 'package:swipe/swipe.dart';
 
-import 'controllers/home_controller.dart';
+import '../../widgets/custom_textformfield.dart';
+import 'controllers/transaction_controller.dart';
+import 'widgets/contact_widget.dart';
 
-class TransferScreen extends StatefulWidget {
-  const TransferScreen({Key? key}) : super(key: key);
-
-  @override
-  State<TransferScreen> createState() => _TransferScreenState();
-}
-
-class _TransferScreenState extends State<TransferScreen> {
-  final homeController = Get.put(HomeController());
-  @override
-  void initState() {
-    homeController.isAdd.value = false;
-    super.initState();
-  }
+class TransferScreen extends GetView<TransactionController> {
+  TransferScreen({Key? key, this.code}) : super(key: key);
+  String? code;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppTheme.isLightTheme == false ? HexColor('#15141f') : HexColor(AppTheme.primaryColorString!),
-      body: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
-                child: Row(
-                  children: [
-                    InkWell(
-                      focusColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const Expanded(child: SizedBox()),
-                    Text(
-                      homeController.isAdd.value == false ? "Transfer" : "Transfer Detail",
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
+    code != null ? controller.getNameByAccountNo(code) : null;
+
+    return KeyboardVisibilityBuilder(builder: (context, isKeyboardVisible) {
+      return Scaffold(
+        backgroundColor: AppTheme.isLightTheme == false ? HexColor('#15141f') : HexColor(AppTheme.primaryColorString!),
+        body: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
+                    child: Row(
+                      children: [
+                        InkWell(
+                          focusColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          splashColor: Colors.transparent,
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Icon(
+                            Icons.arrow_back,
                             color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w800,
                           ),
-                    ),
-                    const Expanded(child: SizedBox()),
-                    const Icon(
-                      Icons.arrow_back,
-                      color: Colors.transparent,
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 30),
-                child: Container(
-                  height: Get.height - 87,
-                  width: Get.width,
-                  decoration: BoxDecoration(
-                    color: AppTheme.isLightTheme == false
-                        ? const Color(0xff211F32)
-                        : Theme.of(context).appBarTheme.backgroundColor,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(24),
-                      topRight: Radius.circular(24),
+                        ),
+                        const Expanded(child: SizedBox()),
+                        Text(
+                          "Transfer",
+                          style: Theme.of(context).textTheme.headline6!.copyWith(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w800,
+                              ),
+                        ),
+                        const Expanded(child: SizedBox()),
+                        const Icon(
+                          Icons.arrow_back,
+                          color: Colors.transparent,
+                        ),
+                      ],
                     ),
                   ),
-                  child: ListView(
-                    physics: const ClampingScrollPhysics(),
-                    padding: EdgeInsets.zero,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 30),
-                            homeController.isAdd.value == false
-                                ? Column(
-                                    children: [
-                                      Text(
-                                        "Where do you want to\ntransfer?",
-                                        style: Theme.of(context).textTheme.headline6!.copyWith(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w800,
-                                            ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      const SizedBox(height: 30),
-                                      Container(
-                                        height: 56,
-                                        width: Get.width,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(16),
-                                          color: AppTheme.isLightTheme == false
-                                              ? const Color(0xff323045)
-                                              : HexColor(AppTheme.primaryColorString!).withOpacity(0.05),
-                                          border: Border.all(
-                                            color: HexColor(AppTheme.primaryColorString!).withOpacity(0.05),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 30),
+                    child: Container(
+                      height: Get.height - 87,
+                      width: Get.width,
+                      decoration: BoxDecoration(
+                        color: AppTheme.isLightTheme == false
+                            ? const Color(0xff211F32)
+                            : Theme.of(context).scaffoldBackgroundColor,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(24),
+                          topRight: Radius.circular(24),
+                        ),
+                      ),
+                      child: ListView(
+                        physics: const ClampingScrollPhysics(),
+                        padding: EdgeInsets.zero,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 30),
+                                Column(
+                                  children: [
+                                    Text(
+                                      "Where do you want to\ntransfer?",
+                                      style: Theme.of(context).textTheme.headline6!.copyWith(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w800,
                                           ),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(left: 20, right: 20),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              SizedBox(
-                                                  height: 24,
-                                                  width: 24,
-                                                  child: SvgPicture.asset(
-                                                    DefaultImages.card,
-                                                    fit: BoxFit.fill,
-                                                    color: AppTheme.isLightTheme == false
-                                                        ? HexColor('#A2A0A8')
-                                                        : HexColor(AppTheme.primaryColorString!),
-                                                  )),
-                                              const SizedBox(width: 14),
-                                              Text(
-                                                "Select Bank",
-                                                style: Theme.of(context).textTheme.headline6!.copyWith(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Theme.of(context)
-                                                        .textTheme
-                                                        .headline6!
-                                                        .color!
-                                                        .withOpacity(0.60)),
-                                              ),
-                                              const Expanded(child: SizedBox()),
-                                              Icon(
-                                                Icons.keyboard_arrow_down_outlined,
-                                                size: 30,
-                                                color: Theme.of(context).textTheme.headline6!.color!.withOpacity(0.5),
-                                              )
-                                            ],
-                                          ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    const SizedBox(height: 30),
+                                    Container(
+                                      width: Get.width,
+                                      decoration: BoxDecoration(
+                                        color: AppTheme.isLightTheme == false
+                                            ? const Color(0xff211F32)
+                                            : Theme.of(context).scaffoldBackgroundColor,
+                                        borderRadius: BorderRadius.circular(12),
+                                        border: Border.all(
+                                          color: Theme.of(context).textTheme.headline6!.color!.withOpacity(0.3),
                                         ),
                                       ),
-                                      const SizedBox(height: 25),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "Transfer to",
-                                            style: Theme.of(context).textTheme.headline6!.copyWith(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
-                                          ),
-                                          Text(
-                                            "See all",
-                                            style: Theme.of(context).textTheme.headline6!.copyWith(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                                color: HexColor(AppTheme.primaryColorString!)),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 20),
-                                      SizedBox(
-                                        height: 90,
-                                        width: Get.width,
-                                        child: ListView(
-                                          physics: const ClampingScrollPhysics(),
-                                          scrollDirection: Axis.horizontal,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Column(
-                                                  children: [
-                                                    CircleAvatar(
-                                                      radius: 30,
-                                                      backgroundColor: AppTheme.isLightTheme == false
-                                                          ? const Color(0xffF5F7FE)
-                                                          : HexColor(AppTheme.primaryColorString!).withOpacity(0.15),
-                                                      child: SvgPicture.asset(
-                                                        DefaultImages.userAdd,
-                                                      ),
-                                                    ),
-                                                    const SizedBox(height: 5),
-                                                    Text(
-                                                      "Add",
-                                                      style: Theme.of(context).textTheme.headline6!.copyWith(
-                                                            fontSize: 12,
-                                                            fontWeight: FontWeight.w500,
-                                                          ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                const SizedBox(width: 14),
-                                                for (var index = 0; index < 4; index++)
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(left: 14, right: 14),
-                                                    child: Column(
-                                                      children: [
-                                                        CircleAvatar(
-                                                          radius: 30,
-                                                          backgroundImage: AssetImage(
-                                                            index == 0
-                                                                ? DefaultImages.user1
-                                                                : index == 1
-                                                                    ? DefaultImages.user2
-                                                                    : index == 2
-                                                                        ? DefaultImages.user3
-                                                                        : DefaultImages.user4,
-                                                          ),
-                                                        ),
-                                                        const SizedBox(height: 5),
-                                                        Text(
-                                                          index == 0
-                                                              ? "Philip"
-                                                              : index == 1
-                                                                  ? "Brandon"
-                                                                  : index == 2
-                                                                      ? "Julia"
-                                                                      : "Dianne",
-                                                          style: Theme.of(context).textTheme.headline6!.copyWith(
-                                                                fontSize: 12,
-                                                                fontWeight: FontWeight.w500,
-                                                              ),
-                                                        ),
-                                                      ],
-                                                    ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(top: 8.0),
+                                        child: code == null
+                                            ? CustomTextFormField(
+                                                sufix: InkWell(
+                                                  focusColor: Colors.transparent,
+                                                  highlightColor: Colors.transparent,
+                                                  hoverColor: Colors.transparent,
+                                                  splashColor:
+                                                      Theme.of(context).textTheme.headline6!.color!.withOpacity(0.5),
+                                                  onTap: () {},
+                                                  child: const Icon(
+                                                    Icons.arrow_drop_down,
+                                                    color: Colors.white,
                                                   ),
-                                              ],
-                                            ),
-                                          ],
+                                                ),
+                                                prefix: Padding(
+                                                  padding: const EdgeInsets.all(14.0),
+                                                  child: SvgPicture.asset(DefaultImages.creditcard,
+                                                      color: HexColor(AppTheme.primaryColorString!)),
+                                                ),
+                                                hintText: "Account number",
+                                                textEditingController: controller.numberAccount.value,
+                                                capitalization: TextCapitalization.none,
+                                                limit: [
+                                                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                                                ],
+                                                inputType: TextInputType.visiblePassword,
+                                              )
+                                            : CustomTextFormField(
+                                                sufix: InkWell(
+                                                  focusColor: Colors.transparent,
+                                                  highlightColor: Colors.transparent,
+                                                  hoverColor: Colors.transparent,
+                                                  splashColor:
+                                                      Theme.of(context).textTheme.headline6!.color!.withOpacity(0.5),
+                                                  onTap: () {},
+                                                  child: const Icon(
+                                                    Icons.arrow_drop_down,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                                prefix: Padding(
+                                                  padding: const EdgeInsets.all(14.0),
+                                                  child: SvgPicture.asset(DefaultImages.creditcard,
+                                                      color: HexColor(AppTheme.primaryColorString!)),
+                                                ),
+                                                hintText: "Account number",
+                                                initialValue: code,
+                                                capitalization: TextCapitalization.none,
+                                                limit: [
+                                                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                                                ],
+                                                inputType: TextInputType.visiblePassword,
+                                              ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Container(
+                                      width: Get.width,
+                                      decoration: BoxDecoration(
+                                        color: AppTheme.isLightTheme == false
+                                            ? const Color(0xff211F32)
+                                            : Theme.of(context).scaffoldBackgroundColor,
+                                        borderRadius: BorderRadius.circular(12),
+                                        border: Border.all(
+                                          color: Theme.of(context).textTheme.headline6!.color!.withOpacity(0.3),
                                         ),
                                       ),
-                                    ],
-                                  )
-                                : Column(
-                                    children: [
-                                      const CircleAvatar(
-                                        radius: 40,
-                                        backgroundImage: AssetImage(
-                                          DefaultImages.user1,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 16),
-                                      Text(
-                                        "Phillip",
-                                        style: Theme.of(context).textTheme.headline6!.copyWith(
-                                              fontSize: 24,
-                                              fontWeight: FontWeight.w800,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(top: 8.0),
+                                        child: Obx(
+                                          () => CustomTextFormField(
+                                            sufix: InkWell(
+                                              focusColor: Colors.transparent,
+                                              highlightColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              splashColor:
+                                                  Theme.of(context).textTheme.headline6!.color!.withOpacity(0.5),
+                                              onTap: () {},
+                                              child: const Icon(
+                                                Icons.arrow_drop_down,
+                                                color: Colors.white,
+                                              ),
                                             ),
-                                      ),
-                                      const SizedBox(height: 30),
-                                      Container(
-                                        height: 64,
-                                        width: Get.width,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(16),
-                                          color: AppTheme.isLightTheme == false
-                                              ? const Color(0xff323045)
-                                              : HexColor(AppTheme.primaryColorString!).withOpacity(0.05),
-                                          border: Border.all(
-                                            color: HexColor(AppTheme.primaryColorString!).withOpacity(0.05),
+                                            prefix: Padding(
+                                              padding: const EdgeInsets.all(14.0),
+                                              child: SvgPicture.asset(DefaultImages.user,
+                                                  color: HexColor(AppTheme.primaryColorString!)),
+                                            ),
+                                            hintText: "Account Name",
+                                            capitalization: TextCapitalization.none,
+                                            textEditingController: controller.nameAccount.value,
+                                            readOnly: true,
                                           ),
                                         ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(left: 20, right: 20),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
+                                      ),
+                                    ),
+                                    Obx(
+                                      () => controller.accountNameError.value
+                                          ? Text(
+                                              "Couldn't find account",
+                                              textAlign: TextAlign.start,
+                                              style: Theme.of(context).textTheme.headline6!.copyWith(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.red,
+                                                  ),
+                                            )
+                                          : const SizedBox(),
+                                    ),
+                                    const SizedBox(height: 25),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Transfer to",
+                                          style: Theme.of(context).textTheme.headline6!.copyWith(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                        ),
+                                        Text(
+                                          "See all",
+                                          style: Theme.of(context).textTheme.headline6!.copyWith(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w500,
+                                              color: HexColor(AppTheme.primaryColorString!)),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 20),
+                                    SizedBox(
+                                      height: 90,
+                                      width: Get.width,
+                                      child: ListView(
+                                        physics: const ClampingScrollPhysics(),
+                                        scrollDirection: Axis.horizontal,
+                                        children: [
+                                          Row(
                                             children: [
-                                              SizedBox(
-                                                  height: 44,
-                                                  width: 44,
-                                                  child: SvgPicture.asset(
-                                                    DefaultImages.transferDetail,
-                                                    fit: BoxFit.fill,
-                                                  )),
-                                              const SizedBox(width: 14),
                                               Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    "Wise",
-                                                    style: Theme.of(context).textTheme.headline6!.copyWith(
-                                                          fontSize: 16,
-                                                          fontWeight: FontWeight.w700,
-                                                        ),
+                                                  CircleAvatar(
+                                                    radius: 30,
+                                                    backgroundColor: AppTheme.isLightTheme == false
+                                                        ? const Color(0xffF5F7FE)
+                                                        : HexColor(AppTheme.primaryColorString!).withOpacity(0.15),
+                                                    child: SvgPicture.asset(
+                                                      DefaultImages.userAdd,
+                                                    ),
                                                   ),
                                                   const SizedBox(height: 5),
                                                   Text(
-                                                    "**** 9797",
+                                                    "Add",
                                                     style: Theme.of(context).textTheme.headline6!.copyWith(
-                                                        fontSize: 14,
-                                                        fontWeight: FontWeight.w400,
-                                                        color: Theme.of(context)
-                                                            .textTheme
-                                                            .headline6!
-                                                            .color!
-                                                            .withOpacity(0.60)),
+                                                          fontSize: 12,
+                                                          fontWeight: FontWeight.w500,
+                                                        ),
                                                   ),
                                                 ],
                                               ),
-                                              const Expanded(child: SizedBox()),
-                                              Icon(
-                                                Icons.keyboard_arrow_down_outlined,
-                                                size: 30,
-                                                color: Theme.of(context).textTheme.headline6!.color!.withOpacity(0.5),
-                                              )
+                                              const SizedBox(width: 14),
+                                              Obx(
+                                                () => controller.contactList.isEmpty
+                                                    ? const SizedBox()
+                                                    : ListView.builder(
+                                                        shrinkWrap: true,
+                                                        physics: const ClampingScrollPhysics(),
+                                                        scrollDirection: Axis.horizontal,
+                                                        itemCount: controller.contactList.length,
+                                                        itemBuilder: (context, index) {
+                                                          return Padding(
+                                                            padding: const EdgeInsets.only(left: 14, right: 14),
+                                                            child: Column(
+                                                              children: [
+                                                                InkWell(
+                                                                  onTap: () {
+                                                                    controller.nameAccount.value.text =
+                                                                        controller.contactList[index].fullName!;
+                                                                    controller.numberAccount.value.text =
+                                                                        controller.contactList[index].accountNo!;
+                                                                    controller.goToTransferDetailScreen();
+                                                                  },
+                                                                  child: contact(
+                                                                    image: "",
+                                                                    fullName: controller.contactList[index].fullName!,
+                                                                    accountNo: controller.contactList[index].accountNo!,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                              ),
                                             ],
                                           ),
-                                        ),
+                                        ],
                                       ),
-                                      const SizedBox(height: 25),
-                                    ],
-                                  ),
-                            const SizedBox(height: 20),
-                            amountContainer(context, "75"),
-                            SizedBox(height: homeController.isAdd.value == true ? 20 : 0),
-                            homeController.isAdd.value == true
-                                ? CardTextField(
-                                    hintText: "Add Note",
-                                    color: AppTheme.isLightTheme == false
-                                        ? const Color(0xff211F32)
-                                        : const Color(0xffFAFAFA),
-                                    radius: 12,
-                                    textEditingController: TextEditingController(),
-                                  )
-                                : const SizedBox(),
-                            const SizedBox(height: 100),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-          homeController.isAdd.value == false
-              ? Padding(
-                  padding: EdgeInsets.only(
-                    left: 20,
-                    right: 20,
-                    bottom: MediaQuery.of(context).padding.bottom + 14,
-                  ),
-                  child: CustomButton(
-                    title: "Continue",
-                    onTap: () {
-                      setState(() {
-                        homeController.isAdd.value = true;
-                      });
-                    },
-                  ),
-                )
-              : Swipe(
-                  onSwipeRight: () {
-                    Get.bottomSheet(
-                      transferDialog(context),
-                    );
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      left: 20,
-                      right: 20,
-                      top: 20,
-                      bottom: MediaQuery.of(context).padding.bottom + 14,
-                    ),
-                    child: Container(
-                      height: 56,
-                      width: Get.width,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: AppTheme.isLightTheme == false
-                            ? HexColor(AppTheme.primaryColorString!)
-                            : HexColor(AppTheme.primaryColorString!).withOpacity(0.05),
-                      ),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Container(
-                              height: 48,
-                              width: 48,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: AppTheme.isLightTheme == false
-                                    ? Colors.white
-                                    : HexColor(AppTheme.primaryColorString!),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: SvgPicture.asset(
-                                  DefaultImages.swipe,
-                                  color: AppTheme.isLightTheme == false
-                                      ? HexColor(AppTheme.primaryColorString!)
-                                      : Colors.white,
+                                    ),
+                                  ],
                                 ),
-                              ),
+                                const SizedBox(height: 20),
+                              ],
                             ),
                           ),
-                          const Expanded(child: SizedBox()),
-                          Text(
-                            "Swipe to transfer",
-                            style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                          ),
-                          const Expanded(child: SizedBox()),
                         ],
                       ),
                     ),
                   ),
-                ),
-        ],
-      ),
-    );
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                left: 20,
+                right: 20,
+                bottom: MediaQuery.of(context).padding.bottom + 14,
+              ),
+              child: CustomButton(
+                title: "Continue",
+                onTap: () {
+                  controller.goToTransferDetailScreen();
+                },
+              ),
+            )
+          ],
+        ),
+      );
+    });
   }
 }
